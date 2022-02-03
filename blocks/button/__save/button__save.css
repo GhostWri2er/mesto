@@ -1,0 +1,17 @@
+.button__save {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  height: 50px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  background-color: #000;
+  width: 238px;
+}
+
+@media screen and (min-width: 1024px) {
+  .button__save {
+    width: 358px;
+    margin-bottom: 37px;
+  }
+}

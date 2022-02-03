@@ -1,9 +1,17 @@
 .button__add-button {
+  background-image: url(../../../images/AddsButton.svg);
   background-color: #000;
+  background-repeat: no-repeat;
   margin-bottom: 36px;
   object-fit: cover;
-  max-width: 150px;
-  max-height: 50px;
+  width: 282px;
+  height: 50px;
+}
 
-
+@media screen and (min-width: 1024px) {
+  .button__add-button {
+    background-image: url(../../../images/AddButton.svg);
+    width: 150px;
+    margin: 0;
+  }
 }

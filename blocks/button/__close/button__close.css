@@ -1,0 +1,18 @@
+.button__close {
+  background-image: url(../../../images/CloseIconmin.png);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -36px;
+  right: 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .button__close {
+    background-image: url(../../../images/CloseIcon.png);
+    width: 32px;
+    height: 32px;
+    top: -40px;
+    right: -40px;
+}
+}

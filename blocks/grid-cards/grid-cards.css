@@ -1,6 +1,6 @@
 .grid-cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 282px;
   margin: 0 auto;
   max-width: 282px;
   row-gap: 20px;
@@ -11,16 +11,17 @@
 
 @media screen and (min-width: 1024px) {
   .grid-cards {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    column-gap: 20px;
+    grid-template-columns: repeat(2, 282px);
+    grid-template-rows: repeat(3, 362px);
+    column-gap: 17px;
+    max-width: 880px;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .grid-cards {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(3, 282px);
+    grid-template-rows: repeat(2, 362px);
     column-gap: 20px;
   }
 }

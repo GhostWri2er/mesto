@@ -5,4 +5,5 @@
   min-height: 100%;
   overflow: hidden;
   margin: 0 auto;
+  box-sizing: border-box;
 }
