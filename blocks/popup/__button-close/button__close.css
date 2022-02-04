@@ -1,4 +1,4 @@
-.profile__button-close {
+.popup__button-close {
   background-image: url(../../../images/CloseIconmin.png);
   width: 20px;
   height: 20px;
@@ -17,7 +17,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .profile__button-close {
+  .popup__button-close {
     background-image: url(../../../images/CloseIcon.png);
     width: 32px;
     height: 32px;
