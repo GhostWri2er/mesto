@@ -1,6 +1,8 @@
 .grid-card__block {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-
+  justify-content: space-between;
+  align-items: baseline;
+  max-width: 246px;
+  margin: 0 auto;
 }

@@ -3,6 +3,7 @@
   line-height: 1.2;
   font-weight: 900;
   color: #000;
+  margin: 25px 0 32px 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

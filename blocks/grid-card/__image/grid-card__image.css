@@ -1,5 +1,6 @@
 .grid-card__image {
   object-fit: cover;
   border-radius: 3% 3% 0 0;
-  max-width: 282px;
+  width: 282px;
+  height: 282px;
 }
