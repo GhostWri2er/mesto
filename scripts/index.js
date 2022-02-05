@@ -9,8 +9,7 @@ const openPopup = function() {
   popupElement.classList.add('popup__container_opened');
 };
 
-const closePopup = function (evt) {
-  evt.preventDefault()
+const closePopup = function () {
   popupElement.classList.remove('popup__container_opened');
 };
 
@@ -37,7 +36,7 @@ function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
-
+  closePopup();
 };
 formElement.addEventListener('submit', formSubmitHandler);
 
