@@ -18,6 +18,6 @@
   .profile__edit-button {
     width: 24px;
     height: 24px;
-    background-image: url(../../../images/EditBtnmax.png)
+    background-image: url(../../../images/EditBtnmax.png);
   }
 }
