@@ -1,7 +1,9 @@
 .profile__edit-button {
+  background-image: url(../../../images/EditBtn.png);
   background-color: #000;
-  width: 18px;
-  height: 18px;
+  background-repeat: no-repeat;
+  width: 19px;
+  height: 19px;
   border: 0;
   padding: 0;
   margin: 0;
@@ -16,6 +18,6 @@
   .profile__edit-button {
     width: 24px;
     height: 24px;
-
+    background-image: url(../../../images/EditBtnmax.png)
   }
 }
