@@ -3,7 +3,7 @@
   background-color: #fff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  position: fixed;
+  position: absolute;
   justify-content: center;
   top: 50%;
   left: 50%;

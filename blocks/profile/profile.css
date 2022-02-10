@@ -9,17 +9,10 @@
   padding-bottom: 36px;
 }
 
-@media screen and (min-width: 768px) {
-  .profile {
-    max-width: 720px;
-  }
-}
-
-
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 920px) {
   .profile {
     max-width: 880px;
-    padding: 0 100px 51px 100px;
+    padding: 0 0 51px 0;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

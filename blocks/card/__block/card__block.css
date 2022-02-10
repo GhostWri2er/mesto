@@ -1,8 +1,7 @@
-.grid-card__block {
+.card__block {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: baseline;
-  max-width: 246px;
   margin: 0 auto;
 }
