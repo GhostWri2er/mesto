@@ -25,6 +25,10 @@ const initialCards = [
   }
 ];
 
+
+//Селекторы.
+
+
 //Получение селекторов для кнопок.
 const popupElement = document.querySelector(".popup");
 const popupContainer = document.querySelector(".popup__container");
@@ -51,6 +55,10 @@ const popupElementSaveButtonAdd = popupElementContainerAdd.querySelector(".popup
 const nameElementAdd = popupElementContainerAdd.querySelector(".popup__input-name_add");
 const linkElementAdd = popupElementContainerAdd.querySelector(".popup__input-description_add");
 const formElementAdd = popupElementContainerAdd.querySelector(".popup__form-edit_add");
+
+
+//Функции.
+
 
 //Функция открытия попапа редактировать
 const openPopup = function () {
@@ -92,6 +100,24 @@ const closePopupAddByCkickOverlay = function (event) {
   closePopupAdd();
 };
 
+//Функция для кнопки сохранить и инпутов.
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
+  closePopup();
+}
+
+//Функция для кнопки создать.
+function handleProfileFormSubmitAdd(evt) {
+  evt.preventDefault();
+  closePopupAdd();
+};
+
+
+//Слушатели.
+
+
 //Слушатели для открытия и закрытия попапа редактировать.
 popupEditButton.addEventListener("click", openPopup);
 popupCloseButton.addEventListener("click", closePopup);
@@ -102,20 +128,6 @@ popupAddButton.addEventListener("click", openPopupAdd);
 popupElementCloseButtonAdd.addEventListener("click", closePopupAdd);
 popupElementAdd.addEventListener("click", closePopupAddByCkickOverlay);
 
-//Функция для кнопки сохранить и инпутов.
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
-  closePopup();
-}
-
-formElement.addEventListener("submit", handleProfileFormSubmit);
-
-//Функция для кнопки создать.
-function handleProfileFormSubmitAdd(evt) {
-  evt.preventDefault();
-  closePopupAdd();
-}
-
+//Слушатели кнопки создать и сохранить
 formElementAdd.addEventListener("submit", handleProfileFormSubmitAdd);
+formElement.addEventListener("submit", handleProfileFormSubmit);
