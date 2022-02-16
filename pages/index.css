@@ -32,6 +32,7 @@
 @import url(../blocks/grid-cards/grid-cards.css);
 
 @import url(../blocks/card/card.css);
+@import url(../blocks/card/__button-delete/card__button-delete.css);
 @import url(../blocks/card/__overlay/card__overlay.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__block/card__block.css);

@@ -12,6 +12,11 @@
   overflow: hidden;
   text-shadow: none;
   color: #fff;
+  transition: opacity .6 linear;
+}
+
+.profile__edit-button:hover {
+  opacity: .6;
 }
 
 @media screen and (min-width: 920px) {

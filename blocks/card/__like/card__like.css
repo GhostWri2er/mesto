@@ -8,5 +8,10 @@
   background-color: #fff;
   margin-right: 15px;
   margin-left: 5px;
+  transition: opacity .2s linear;
+}
 
+.card__like:hover {
+  cursor: pointer;
+  opacity: .6;
 }

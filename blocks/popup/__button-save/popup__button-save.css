@@ -14,6 +14,11 @@
   overflow: hidden;
   text-shadow: none;
   color: #fff;
+  transition: opacity 0.2s linear;
+}
+
+.popup__button-save:hover {
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 1024px) {
