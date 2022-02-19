@@ -31,78 +31,24 @@
         </section>
 
         <section class="grid-cards">
-          <article class="grid-cards__item card">
-            <button class="card__button-delete"></button>
-            <div class="card__overlay">
-              <img
-                class="card__image"
-                src="./images/saintsPetersburg.jpg"
-                alt="Санкт-Петербург"
-              />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Санкт-Петербург</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
-
-          <article class="grid-cards__item card">
-            <div class="card__overlay">
-              <img
-                class="card__image"
-                src="./images/losAngeles.jpg"
-                alt="Лос-Анджелес"
-              />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Лос-Анджелес</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
-
-          <article class="grid-cards__item card">
-            <div class="card__overlay">
-              <img class="card__image" src="./images/paris.jpg" alt="Париж" />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Париж</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
-
-          <article class="grid-cards__item card">
-            <div class="card__overlay">
-              <img class="card__image" src="./images/moscow.jpg" alt="Москва" />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Москва</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
-
-          <article class="grid-cards__item card">
-            <div class="card__overlay">
-              <img class="card__image" src="./images/miami.jpg" alt="Майами" />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Майами</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
-
-          <article class="grid-cards__item card">
-            <div class="card__overlay">
-              <img
-                class="card__image"
-                src="./images/saudovskaya.jpg"
-                alt="Карачаевск"
-              />
-            </div>
-            <div class="card__block">
-              <h2 class="card__name">Саудовская Аравия</h2>
-              <button class="card__like"></button>
-            </div>
-          </article>
+          <template class="template">
+            <article class="grid-cards__item card">
+              <button class="card__button-delete"></button>
+              <div class="card__overlay">
+                <button class="card__open-fullscreen">
+                  <img
+                    class="card__image"
+                    src="/"
+                    alt=""
+                  />
+                </button>
+              </div>
+              <div class="card__block">
+                <h2 class="card__name"></h2>
+                <button class="card__like"></button>
+              </div>
+            </article>
+          </template>
         </section>
       </main>
 
@@ -156,7 +102,7 @@
     </div>
 
     //Попап картинки на весь экран
-    <div class="popup popup-FullScreen popup_opened">
+    <div class="popup popup-FullScreen">
       <div class="popup__container popup__container-FullScreen">
         <img class="popup__img-FullScreen" src="./images/alberta-banf-kanada.1920x1200.jpg" alt="">
         <h2 class="popup__title popup__name-FullScreen">Что то</h2>

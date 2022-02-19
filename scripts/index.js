@@ -56,9 +56,47 @@ const nameElementAdd = popupElementContainerAdd.querySelector(".popup__input-nam
 const linkElementAdd = popupElementContainerAdd.querySelector(".popup__input-description_add");
 const formElementAdd = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
+//Получение селекторов для карточек(template)
+const template = document.querySelector(".template").content;
+const cardsElement = document.querySelector(".grid-cards");
+const fullscreenCard = document.querySelector(".card__open-fullscreen");
+const cardImage = document.querySelector(".card__image");
+const deleteCard = document.querySelector(".card__button-delete");
 
 //Функции.
 
+function renderCard(name, link) {
+  const nameCard = template.cloneNode(true);
+
+
+
+  nameCard.querySelector(".card__name").textContent = name;
+  nameCard.querySelector(".card__image").src = link;
+
+
+
+  cardsElement.appendChild(nameCard);
+
+}
+
+function renderCards(name, link) {
+  initialCards.forEach(renderCard);
+};
+
+renderCards(initialCards);
+
+function handleSubmit() {
+  const name = nameElementAdd.value;
+  const link = linkElementAdd.value;
+
+  renderCard(name, link);
+}
+
+formElementAdd.addEventListener("submit", (event) => {
+  event.preventDefault();
+  handleSubmit();
+
+});
 
 //Функция открытия попапа редактировать
 const openPopup = function () {

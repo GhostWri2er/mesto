@@ -39,6 +39,7 @@
 @import url(../blocks/card/__name/card__name.css);
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__like/card__like_active.css);
+@import url(../blocks/card/__open-fullscreen/card__open-fullscreen.css);
 
 @import url(../blocks/popup-FullScreen/popup-FullScreen.css);
 @import url(../blocks/popup-FullScreen/__container-FullScreen/popup__container-FullScreen.css);
