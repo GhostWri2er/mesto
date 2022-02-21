@@ -65,22 +65,32 @@ const deleteCard = document.querySelector(".card__button-delete");
 
 //Функции.
 
-function renderCard(name, link) {
+function renderCard(card) {
   const nameCard = template.cloneNode(true);
+  nameCard.querySelector(".card__name").textContent = card.name;
+  nameCard.querySelector(".card__image").src = card.link;
 
+  cardsElement.prepend(nameCard);
+}
 
+function renderCard(initialCards) {
+  const nameCard = template.cloneNode(true);
+  nameCard.querySelector(".card__name").textContent = initialCards.name;
+  nameCard.querySelector(".card__image").src = initialCards.link;
 
+  cardsElement.prepend(nameCard);
+}
+
+function addCard(name, link) {
+  const nameCard = template.cloneNode(true);
   nameCard.querySelector(".card__name").textContent = name;
   nameCard.querySelector(".card__image").src = link;
 
-
-
-  cardsElement.appendChild(nameCard);
-
+  cardsElement.prepend(nameCard);
 }
 
-function renderCards(name, link) {
-  initialCards.forEach(renderCard);
+function renderCards(cards) {
+  cards.forEach(renderCard);
 };
 
 renderCards(initialCards);
@@ -89,7 +99,7 @@ function handleSubmit() {
   const name = nameElementAdd.value;
   const link = linkElementAdd.value;
 
-  renderCard(name, link);
+  addCard(name, link);
 }
 
 formElementAdd.addEventListener("submit", (event) => {
