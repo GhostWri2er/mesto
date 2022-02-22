@@ -80,7 +80,7 @@ function renderCard(initialCards) {
 
   cardsElement.append(itemCard);
 }
-
+//Функция добавления карточки.
 function addCard(name, link) {
   const itemCard = template.cloneNode(true);
 
@@ -92,18 +92,18 @@ function addCard(name, link) {
   itemCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen);
   cardsElement.prepend(itemCard);
 }
-
+//Функция Обхода массива карточек.
 function renderCards(cards) {
   cards.forEach(renderCard);
 };
 
 renderCards(initialCards);
-
+//Функция удаления карточки.
 function handleDelete(event) {
   const itemCard = event.target.closest(".grid-cards__item")
   itemCard.remove();
 };
-
+//Функция разворачивания на полный экран карточки.
 function handleFullscreen(event) {
   const itemCard = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
   const target = event.target;
@@ -114,18 +114,18 @@ function handleFullscreen(event) {
   popupImage.alt = cardName.textContent;
   popupImageName.textContent = cardName.textContent;
 };
-
+//Функция лайка.
 function handelLike (evt) {
   evt.target.classList.toggle('card__like_active');
 }
-
+//Функция для кнопки создать.
 function handleSubmit() {
   const name = nameElementAdd.value;
   const link = linkElementAdd.value;
 
   addCard(name, link);
 }
-
+//Слушатель для кнопки создать.
 formElementAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   handleSubmit();
