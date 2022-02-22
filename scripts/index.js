@@ -56,6 +56,10 @@ const nameElementAdd = popupElementContainerAdd.querySelector(".popup__input-nam
 const linkElementAdd = popupElementContainerAdd.querySelector(".popup__input-description_add");
 const formElementAdd = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
+//Получение селекторов для попапа на весь экран.
+const popupFullScreen = document.querySelector(".popup-FullScreen");
+const popupFullScreenBtnClose = document.querySelector(".popup__close-FullScreen")
+
 //Получение селекторов для карточек(template)
 const template = document.querySelector(".template").content;
 const cardsElement = document.querySelector(".grid-cards");
@@ -70,7 +74,6 @@ function renderCard(card) {
   const nameCard = template.cloneNode(true);
   nameCard.querySelector(".card__name").textContent = card.name;
   nameCard.querySelector(".card__image").src = card.link;
-  setEventListeners(itemElement);
   cardsElement.prepend(nameCard);
 }
 
@@ -81,6 +84,7 @@ function renderCard(initialCards) {
   nameCard.querySelector(".card__image").src = initialCards.link;
   nameCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
   nameCard.querySelector('.card__like').addEventListener('click', handelLike);
+  nameCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen)
 
   cardsElement.prepend(nameCard);
 }
@@ -103,6 +107,17 @@ renderCards(initialCards);
 function handleDelete(event) {
   const itemElement = event.target.closest(".grid-cards__item")
   itemElement.remove();
+};
+
+function handleFullscreen(event) {
+  const itemElement = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
+  const target = event.target;
+  const cardName = document.querySelector(".card__name")
+  const popupImage = document.querySelector(".popup__img-FullScreen");
+  const popupImageName = document.querySelector(".popup__name-FullScreen");
+  popupImage.src = target.src;
+  popupImage.alt = cardName.textContent;
+  popupImageName.textContent = cardName.textContent;
 };
 
 function handelLike (evt) {
@@ -162,6 +177,18 @@ const closePopupAddByCkickOverlay = function (event) {
   closePopupAdd();
 };
 
+//Функция закрытия попапа на весь экран.
+const closePopupFullscreen = function () {
+  popupFullScreen.classList.remove("popup_opened");
+};
+
+const closePopupFullscreenByCkickOverlay = function (event) {
+  if (event.target !== event.currentTarget) {
+    return;
+  }
+  closePopupFullscreen();
+};
+
 //Функция для кнопки сохранить и инпутов.
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -193,3 +220,6 @@ popupElementAdd.addEventListener("click", closePopupAddByCkickOverlay);
 //Слушатели кнопки создать и сохранить
 formElementAdd.addEventListener("submit", handleProfileFormSubmitAdd);
 formElement.addEventListener("submit", handleProfileFormSubmit);
+//Закрытие попапа на весь экран.
+popupFullScreenBtnClose.addEventListener("click", closePopupFullscreen);
+popupFullScreen.addEventListener("click", closePopupFullscreenByCkickOverlay);
