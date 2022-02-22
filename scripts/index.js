@@ -69,33 +69,28 @@ const deleteCard = document.querySelector(".card__button-delete");
 
 
 //Функции.
-
-function renderCard(card) {
-  const nameCard = template.cloneNode(true);
-  nameCard.querySelector(".card__name").textContent = card.name;
-  nameCard.querySelector(".card__image").src = card.link;
-  cardsElement.prepend(nameCard);
-}
-
 function renderCard(initialCards) {
-  const nameCard = template.cloneNode(true);
+  const itemCard = template.cloneNode(true);
 
-  nameCard.querySelector(".card__name").textContent = initialCards.name;
-  nameCard.querySelector(".card__image").src = initialCards.link;
-  nameCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
-  nameCard.querySelector('.card__like').addEventListener('click', handelLike);
-  nameCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen)
+  itemCard.querySelector(".card__name").textContent = initialCards.name;
+  itemCard.querySelector(".card__image").src = initialCards.link;
+  itemCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
+  itemCard.querySelector('.card__like').addEventListener('click', handelLike);
+  itemCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen);
 
-  cardsElement.prepend(nameCard);
+  cardsElement.append(itemCard);
 }
 
 function addCard(name, link) {
-  const nameCard = template.cloneNode(true);
+  const itemCard = template.cloneNode(true);
 
-  nameCard.querySelector(".card__name").textContent = name;
-  nameCard.querySelector(".card__image").src = link;
+  itemCard.querySelector(".card__name").textContent = name;
+  itemCard.querySelector(".card__image").src = link;
 
-  cardsElement.prepend(nameCard);
+  itemCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
+  itemCard.querySelector('.card__like').addEventListener('click', handelLike);
+  itemCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen);
+  cardsElement.prepend(itemCard);
 }
 
 function renderCards(cards) {
@@ -105,12 +100,12 @@ function renderCards(cards) {
 renderCards(initialCards);
 
 function handleDelete(event) {
-  const itemElement = event.target.closest(".grid-cards__item")
-  itemElement.remove();
+  const itemCard = event.target.closest(".grid-cards__item")
+  itemCard.remove();
 };
 
 function handleFullscreen(event) {
-  const itemElement = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
+  const itemCard = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
   const target = event.target;
   const cardName = document.querySelector(".card__name")
   const popupImage = document.querySelector(".popup__img-FullScreen");
