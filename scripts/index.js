@@ -29,20 +29,19 @@ const initialCards = [
 //Селекторы.
 
 
-//Получение селекторов для кнопок.
-const popupElement = document.querySelector(".popup");
+//Получение селекторов для попапа редактировать информацию в профиле.
+const profilePopup = document.querySelector('.profile-popup');
 const popupContainer = document.querySelector(".popup__container");
 const popupEditButton = document.querySelector(".profile__edit-button");
-const popupCloseButton = popupContainer.querySelector(".popup__button-close");
-const popupSaveButton = popupContainer.querySelector(".popap__button-save");
+const profileCloseButton = popupContainer.querySelector(".popup__button-close");
 const profileElement = document.querySelector(".profile");
 const nameElement = document.querySelector(".profile__name");
 const jobElement = document.querySelector(".profile__description");
 
 //Получение селекторов для инпутов.
-const formElement = document.querySelector(".popup__form-edit");
-const nameInput = formElement.querySelector(".popup__input-name");
-const jobInput = formElement.querySelector(".popup__input-description");
+const profileForm = document.querySelector(".popup__form-edit");
+const nameInput = profileForm.querySelector(".popup__input-name");
+const jobInput = profileForm.querySelector(".popup__input-description");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
@@ -50,11 +49,10 @@ const profileDescription = document.querySelector(".profile__description");
 const popupAddButton = document.querySelector(".profile__add-button");
 const popupElementAdd = document.querySelector(".popup_add");
 const popupElementContainerAdd = popupElementAdd.querySelector(".popup__container_add");
-const popupElementCloseButtonAdd = popupElementContainerAdd.querySelector(".popup__button-close_add");
-const popupElementSaveButtonAdd = popupElementContainerAdd.querySelector(".popup__button-save_add");
+const addCardCloseButton = popupElementContainerAdd.querySelector(".popup__button-close_add");
 const nameElementAdd = popupElementContainerAdd.querySelector(".popup__input-name_add");
 const linkElementAdd = popupElementContainerAdd.querySelector(".popup__input-description_add");
-const formElementAdd = popupElementContainerAdd.querySelector(".popup__form-edit_add");
+const addForm = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
 //Получение селекторов для попапа на весь экран.
 const popupFullScreen = document.querySelector(".popup-FullScreen");
@@ -69,23 +67,32 @@ const deleteCard = document.querySelector(".card__button-delete");
 
 
 //Функции.
-function renderCard(initialCards) {
-  const itemCard = template.cloneNode(true);
 
-  itemCard.querySelector(".card__name").textContent = initialCards.name;
-  itemCard.querySelector(".card__image").src = initialCards.link;
+//Функция создания карточки.
+function createCard(item) {
+  const itemCard = template.cloneNode(true);
+  const imageCard = itemCard.querySelector(".card__image");
+  itemCard.querySelector(".card__name").textContent = item.name;
+  imageCard.src = item.link;
+  imageCard.alt = item.name;
+
   itemCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
   itemCard.querySelector('.card__like').addEventListener('click', handelLike);
   itemCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen);
+  return itemCard;
+}
 
-  cardsElement.append(itemCard);
+function renderCard(item) {
+  cardsElement.append(createCard(item));
 }
 //Функция добавления карточки.
 function addCard(name, link) {
   const itemCard = template.cloneNode(true);
+  const imageCard = itemCard.querySelector(".card__image");
 
   itemCard.querySelector(".card__name").textContent = name;
-  itemCard.querySelector(".card__image").src = link;
+  imageCard.src = link;
+  imageCard.alt = name;
 
   itemCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
   itemCard.querySelector('.card__like').addEventListener('click', handelLike);
@@ -93,8 +100,8 @@ function addCard(name, link) {
   cardsElement.prepend(itemCard);
 }
 //Функция Обхода массива карточек.
-function renderCards(cards) {
-  cards.forEach(renderCard);
+function renderCards(items) {
+  items.forEach(renderCard);
 };
 
 renderCards(initialCards);
@@ -126,7 +133,7 @@ function handleSubmit() {
   addCard(name, link);
 }
 //Слушатель для кнопки создать.
-formElementAdd.addEventListener("submit", (event) => {
+addForm.addEventListener("submit", (event) => {
   event.preventDefault();
   handleSubmit();
 
@@ -138,12 +145,12 @@ const openPopup = function () {
   const description = jobElement.textContent;
   nameInput.value = name;
   jobInput.value = description;
-  popupElement.classList.add("popup_opened");
+  profilePopup.classList.add("popup_opened");
 };
 
 //Функция закрытия попапа.
 const closePopup = function () {
-  popupElement.classList.remove("popup_opened");
+  profilePopup.classList.remove("popup_opened");
 };
 
 //Функция закрытия попапа на элемент вне попапа.
@@ -204,17 +211,17 @@ function handleProfileFormSubmitAdd(evt) {
 
 //Слушатели для открытия и закрытия попапа редактировать.
 popupEditButton.addEventListener("click", openPopup);
-popupCloseButton.addEventListener("click", closePopup);
-popupElement.addEventListener("click", closePopupByCkickOverlay);
+profileCloseButton.addEventListener("click", closePopup);
+profilePopup.addEventListener("click", closePopupByCkickOverlay);
 
 //Слушатели для открытия и закрытия попапа добавить.
 popupAddButton.addEventListener("click", openPopupAdd);
-popupElementCloseButtonAdd.addEventListener("click", closePopupAdd);
+addCardCloseButton.addEventListener("click", closePopupAdd);
 popupElementAdd.addEventListener("click", closePopupAddByCkickOverlay);
 
 //Слушатели кнопки создать и сохранить
-formElementAdd.addEventListener("submit", handleProfileFormSubmitAdd);
-formElement.addEventListener("submit", handleProfileFormSubmit);
+addForm.addEventListener("submit", handleProfileFormSubmitAdd);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 //Закрытие попапа на весь экран.
 popupFullScreenBtnClose.addEventListener("click", closePopupFullscreen);
 popupFullScreen.addEventListener("click", closePopupFullscreenByCkickOverlay);
