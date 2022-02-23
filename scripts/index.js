@@ -121,7 +121,7 @@ function handleAddFormSubmit() {
 
   nameElementAdd.value = "";
   linkElementAdd.value = "";
-closePopupAdd();
+closePopup(popupElementAdd);
 }
 //Слушатель для кнопки создать.
 addForm.addEventListener("submit", (event) => {
@@ -188,7 +188,7 @@ const closePopupFullscreenByCkickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return;
   }
-  closePopupFullscreen(popupFullScreen);
+  closePopup(popupFullScreen);
 };
 
 //Функция для кнопки сохранить и инпутов.
