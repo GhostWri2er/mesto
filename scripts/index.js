@@ -56,7 +56,9 @@ const addForm = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
 //Получение селекторов для попапа на весь экран.
 const popupFullScreen = document.querySelector(".popup-FullScreen");
-const popupFullScreenBtnClose = document.querySelector(".popup__close-FullScreen")
+const popupFullScreenBtnClose = document.querySelector(".popup__close-FullScreen");
+const popupImage = document.querySelector(".popup__img-FullScreen");
+const popupImageName = document.querySelector(".popup__name-FullScreen");
 
 //Получение селекторов для карточек(template)
 const template = document.querySelector(".template").content;
@@ -83,22 +85,9 @@ function createCard(item) {
 }
 
 function renderCard(item) {
-  cardsElement.append(createCard(item));
+  cardsElement.prepend(createCard(item));
 }
-//Функция добавления карточки.
-function addCard(name, link) {
-  const itemCard = template.cloneNode(true);
-  const imageCard = itemCard.querySelector(".card__image");
 
-  itemCard.querySelector(".card__name").textContent = name;
-  imageCard.src = link;
-  imageCard.alt = name;
-
-  itemCard.querySelector('.card__button-delete').addEventListener('click', handleDelete);
-  itemCard.querySelector('.card__like').addEventListener('click', handelLike);
-  itemCard.querySelector('.card__open-fullscreen').addEventListener('click', handleFullscreen);
-  cardsElement.prepend(itemCard);
-}
 //Функция Обхода массива карточек.
 function renderCards(items) {
   items.forEach(renderCard);
@@ -114,9 +103,7 @@ function handleDelete(event) {
 function handleFullscreen(event) {
   const itemCard = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
   const target = event.target;
-  const cardName = document.querySelector(".card__name")
-  const popupImage = document.querySelector(".popup__img-FullScreen");
-  const popupImageName = document.querySelector(".popup__name-FullScreen");
+  const cardName = target.closest(".grid-cards__item").querySelector(".card__name");
   popupImage.src = target.src;
   popupImage.alt = cardName.textContent;
   popupImageName.textContent = cardName.textContent;
@@ -126,31 +113,44 @@ function handelLike (evt) {
   evt.target.classList.toggle('card__like_active');
 }
 //Функция для кнопки создать.
-function handleSubmit() {
-  const name = nameElementAdd.value;
-  const link = linkElementAdd.value;
+function handleAddFormSubmit() {
+  renderCard({
+    name: nameElementAdd.value,
+    link: linkElementAdd.value,
+  });
 
-  addCard(name, link);
+  nameElementAdd.value = "";
+  linkElementAdd.value = "";
+closePopupAdd();
 }
 //Слушатель для кнопки создать.
 addForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  handleSubmit();
-
+  handleAddFormSubmit();
 });
 
+//Функция открытия попапа.
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+};
+
+//Функция закрытия попапа.
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+};
+
 //Функция открытия попапа редактировать
-const openPopup = function () {
+const openPopupProfile = function () {
   const name = nameElement.textContent;
   const description = jobElement.textContent;
   nameInput.value = name;
   jobInput.value = description;
-  profilePopup.classList.add("popup_opened");
+  openPopup(profilePopup);
 };
 
 //Функция закрытия попапа.
-const closePopup = function () {
-  profilePopup.classList.remove("popup_opened");
+const closePopupProfile = function () {
+  closePopup(profilePopup);
 };
 
 //Функция закрытия попапа на элемент вне попапа.
@@ -158,17 +158,17 @@ const closePopupByCkickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return;
   }
-  closePopup();
+  closePopup(profilePopup);
 };
 
 //Функция открытия попапа добавить
 const openPopupAdd = function () {
-  popupElementAdd.classList.add("popup_opened");
+  openPopup(popupElementAdd);
 };
 
 //функция закрытия попапа добавить
 const closePopupAdd = function () {
-  popupElementAdd.classList.remove("popup_opened");
+  closePopup(popupElementAdd);
 };
 
 //Функция закрытия попапа добавить на элемент вне попапа.
@@ -176,19 +176,19 @@ const closePopupAddByCkickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return;
   }
-  closePopupAdd();
+  closePopup(popupElementAdd);
 };
 
 //Функция закрытия попапа на весь экран.
 const closePopupFullscreen = function () {
-  popupFullScreen.classList.remove("popup_opened");
+  closePopup(popupFullScreen);
 };
 
 const closePopupFullscreenByCkickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return;
   }
-  closePopupFullscreen();
+  closePopupFullscreen(popupFullScreen);
 };
 
 //Функция для кнопки сохранить и инпутов.
@@ -196,22 +196,18 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
-  closePopup();
+  closePopup(profilePopup);
 }
 
 //Функция для кнопки создать.
-function handleProfileFormSubmitAdd(evt) {
-  evt.preventDefault();
-  closePopupAdd();
-};
 
 
 //Слушатели.
 
 
 //Слушатели для открытия и закрытия попапа редактировать.
-popupEditButton.addEventListener("click", openPopup);
-profileCloseButton.addEventListener("click", closePopup);
+popupEditButton.addEventListener("click", openPopupProfile);
+profileCloseButton.addEventListener("click", closePopupProfile);
 profilePopup.addEventListener("click", closePopupByCkickOverlay);
 
 //Слушатели для открытия и закрытия попапа добавить.
@@ -220,7 +216,6 @@ addCardCloseButton.addEventListener("click", closePopupAdd);
 popupElementAdd.addEventListener("click", closePopupAddByCkickOverlay);
 
 //Слушатели кнопки создать и сохранить
-addForm.addEventListener("submit", handleProfileFormSubmitAdd);
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 //Закрытие попапа на весь экран.
 popupFullScreenBtnClose.addEventListener("click", closePopupFullscreen);
