@@ -87,6 +87,7 @@ function renderCards(items) {
 };
 
 renderCards(initialCards);
+
 //Функция удаления карточки.
 function handleDelete(event) {
   event.target.closest(".grid-cards__item").remove()
@@ -101,10 +102,12 @@ function handleFullscreen(event) {
   popupImage.alt = cardName.textContent;
   popupImageName.textContent = cardName.textContent;
 };
+
 //Функция лайка.
 function handelLike (evt) {
   evt.target.classList.toggle('card__like_active');
-}
+};
+
 //Функция для кнопки создать.
 function handleAddFormSubmit() {
   renderCard({
@@ -112,8 +115,10 @@ function handleAddFormSubmit() {
     link: linkElementAdd.value,
   });
   addForm.reset();
+
   closePopup(popupElementAdd);
 }
+
 //Слушатель для кнопки создать.
 addForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -151,17 +156,10 @@ const openPopupProfile = function () {
   openPopup(profilePopup);
 };
 
-//Функция закрытия попапа.
-
-
 //Функция открытия попапа добавить
 const openPopupAdd = function () {
   openPopup(popupElementAdd);
 };
-
-
-//Функция закрытия попапа добавить на элемент вне попапа.
-
 
 //Функция для кнопки сохранить и инпутов.
 function handleProfileFormSubmit(evt) {
@@ -169,13 +167,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
   closePopup(profilePopup);
-}
-
-//Функция для кнопки создать.
-
-
-//Слушатели.
-
+};
 
 //Слушатели для открытия и закрытия попапа редактировать.
 popupEditButton.addEventListener("click", openPopupProfile);
@@ -183,5 +175,5 @@ popupEditButton.addEventListener("click", openPopupProfile);
 //Слушатели для открытия и закрытия попапа добавить.
 popupAddButton.addEventListener("click", openPopupAdd);
 
-//Слушатели кнопки создать и сохранить
+//Слушатели кнопки сохранить
 profileForm.addEventListener("submit", handleProfileFormSubmit);
