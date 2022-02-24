@@ -31,10 +31,7 @@ const initialCards = [
 
 //Получение селекторов для попапа редактировать информацию в профиле.
 const profilePopup = document.querySelector('.profile-popup');
-const popupContainer = document.querySelector(".popup__container");
 const popupEditButton = document.querySelector(".profile__edit-button");
-const profileCloseButton = popupContainer.querySelector(".popup__button-close");
-const profileElement = document.querySelector(".profile");
 const nameElement = document.querySelector(".profile__name");
 const jobElement = document.querySelector(".profile__description");
 
@@ -49,24 +46,20 @@ const profileDescription = document.querySelector(".profile__description");
 const popupAddButton = document.querySelector(".profile__add-button");
 const popupElementAdd = document.querySelector(".popup_add");
 const popupElementContainerAdd = popupElementAdd.querySelector(".popup__container_add");
-const addCardCloseButton = popupElementContainerAdd.querySelector(".popup__button-close_add");
 const nameElementAdd = popupElementContainerAdd.querySelector(".popup__input-name_add");
 const linkElementAdd = popupElementContainerAdd.querySelector(".popup__input-description_add");
 const addForm = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
 //Получение селекторов для попапа на весь экран.
 const popupFullScreen = document.querySelector(".popup-FullScreen");
-const popupFullScreenBtnClose = document.querySelector(".popup__close-FullScreen");
 const popupImage = document.querySelector(".popup__img-FullScreen");
 const popupImageName = document.querySelector(".popup__name-FullScreen");
 
 //Получение селекторов для карточек(template)
 const template = document.querySelector(".template").content;
 const cardsElement = document.querySelector(".grid-cards");
-const fullscreenCard = document.querySelector(".card__open-fullscreen");
-const cardImage = document.querySelector(".card__image");
-const deleteCard = document.querySelector(".card__button-delete");
-
+const popups = document.querySelectorAll(".popup");
+const cardName = document.querySelector(".card__name")
 
 //Функции.
 
@@ -96,12 +89,12 @@ function renderCards(items) {
 renderCards(initialCards);
 //Функция удаления карточки.
 function handleDelete(event) {
-  const itemCard = event.target.closest(".grid-cards__item")
-  itemCard.remove();
+  event.target.closest(".grid-cards__item").remove()
 };
+
 //Функция разворачивания на полный экран карточки.
 function handleFullscreen(event) {
-  const itemCard = document.querySelector('.popup-FullScreen').classList.add("popup_opened");
+  openPopup(popupFullScreen);
   const target = event.target;
   const cardName = target.closest(".grid-cards__item").querySelector(".card__name");
   popupImage.src = target.src;
@@ -118,10 +111,8 @@ function handleAddFormSubmit() {
     name: nameElementAdd.value,
     link: linkElementAdd.value,
   });
-
-  nameElementAdd.value = "";
-  linkElementAdd.value = "";
-closePopup(popupElementAdd);
+  addForm.reset();
+  closePopup(popupElementAdd);
 }
 //Слушатель для кнопки создать.
 addForm.addEventListener("submit", (event) => {
@@ -139,6 +130,18 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
+//Функция закрытия попапа на крестик и оверлей.
+  popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup);
+      };
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup);
+      };
+    });
+  });
+
 //Функция открытия попапа редактировать
 const openPopupProfile = function () {
   const name = nameElement.textContent;
@@ -149,47 +152,16 @@ const openPopupProfile = function () {
 };
 
 //Функция закрытия попапа.
-const closePopupProfile = function () {
-  closePopup(profilePopup);
-};
 
-//Функция закрытия попапа на элемент вне попапа.
-const closePopupByCkickOverlay = function (event) {
-  if (event.target !== event.currentTarget) {
-    return;
-  }
-  closePopup(profilePopup);
-};
 
 //Функция открытия попапа добавить
 const openPopupAdd = function () {
   openPopup(popupElementAdd);
 };
 
-//функция закрытия попапа добавить
-const closePopupAdd = function () {
-  closePopup(popupElementAdd);
-};
 
 //Функция закрытия попапа добавить на элемент вне попапа.
-const closePopupAddByCkickOverlay = function (event) {
-  if (event.target !== event.currentTarget) {
-    return;
-  }
-  closePopup(popupElementAdd);
-};
 
-//Функция закрытия попапа на весь экран.
-const closePopupFullscreen = function () {
-  closePopup(popupFullScreen);
-};
-
-const closePopupFullscreenByCkickOverlay = function (event) {
-  if (event.target !== event.currentTarget) {
-    return;
-  }
-  closePopup(popupFullScreen);
-};
 
 //Функция для кнопки сохранить и инпутов.
 function handleProfileFormSubmit(evt) {
@@ -207,16 +179,9 @@ function handleProfileFormSubmit(evt) {
 
 //Слушатели для открытия и закрытия попапа редактировать.
 popupEditButton.addEventListener("click", openPopupProfile);
-profileCloseButton.addEventListener("click", closePopupProfile);
-profilePopup.addEventListener("click", closePopupByCkickOverlay);
 
 //Слушатели для открытия и закрытия попапа добавить.
 popupAddButton.addEventListener("click", openPopupAdd);
-addCardCloseButton.addEventListener("click", closePopupAdd);
-popupElementAdd.addEventListener("click", closePopupAddByCkickOverlay);
 
 //Слушатели кнопки создать и сохранить
 profileForm.addEventListener("submit", handleProfileFormSubmit);
-//Закрытие попапа на весь экран.
-popupFullScreenBtnClose.addEventListener("click", closePopupFullscreen);
-popupFullScreen.addEventListener("click", closePopupFullscreenByCkickOverlay);
