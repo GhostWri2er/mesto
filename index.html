@@ -56,24 +56,35 @@
         <p class="footer__copyright">© 2022 Mesto Russia</p>
       </footer>
     </div>
+
     // Попап редактировать профиль
     <div class="popup profile-popup">
       <div class="popup__container">
-        <form class="popup__form-edit">
+        <form class="popup__form-edit" method="post" novalidate>
           <button class="popup__button-close popup__close" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input
-            class="popup__input-name"
-            type="text"
-            name="name"
-            placeholder="Ваше имя"
-          />
-          <input
-            class="popup__input-description"
-            type="text"
-            name="description"
-            placeholder="Описание"
-          />
+          <div class="popup__block">
+            <input
+              class="popup__input popup__input-name"
+              id="inputName"
+              type="text"
+              name="name"
+              placeholder="Ваше имя"
+              required
+            />
+            <span class="popup__input-error">111</span>
+          </div>
+          <div class="popup__block">
+            <input
+              class="popup__input popup__input-description"
+              id="inputDescription"
+              type="text"
+              name="description"
+              placeholder="Описание"
+              required
+            />
+            <span class="popup__input-error">111</span>
+          </div>
           <button class="popup__button-save" type="submit">Сохранить</button>
         </form>
       </div>
@@ -81,22 +92,33 @@
 // попал добавить картинку
     <div class="popup popup_add">
       <div class="popup__container popup__container_add">
-        <form class="popup__form-edit popup__form-edit_add">
+        <form class="popup__form-edit popup__form-edit_add" method="post" novalidate>
           <button class="popup__button-close popup__button-close_add popup__close" type="button"></button>
           <h2 class="popup__title popup__title_add">Новое место</h2>
-          <input
-            class="popup__input-name popup__input-name_add"
-            type="text"
-            name="name"
-            placeholder="Название"
-          />
-          <input
-            class="popup__input-description popup__input-description_add"
-            type="text"
-            name="description"
-            placeholder="Ссылка на картинку"
-          />
+          <div class="popup__block">
+            <input
+              class="popup__input popup__input-name popup__input-name_add"
+              id="inputNameCard"
+              type="text"
+              name="name"
+              placeholder="Название"
+              required
+            />
+            <span class="popup__input-error">111</span>
+          </div>
+          <div class="popup__block">
+            <input
+              class="popup__input popup__input-description popup__input-description_add"
+              id="inputLink"
+              type="url"
+              name="description"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="popup__input-error">111</span>
+          </div>
           <button class="popup__button-save popup__button-save_add" type="submit">Создать</button>
+
         </form>
       </div>
     </div>
@@ -110,5 +132,6 @@
       </div>
     </div>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

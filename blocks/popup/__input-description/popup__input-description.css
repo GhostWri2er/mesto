@@ -3,9 +3,10 @@
   width: 238px;
   border: 0;
   border-bottom: 1px solid #000000;
-  padding-bottom: 13px;
   margin: 0 auto;
-  margin-bottom: 48px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  padding-bottom: 13px;
 }
 
 @media screen and (min-width: 1024px) {
