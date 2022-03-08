@@ -41,6 +41,7 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 //Получение селекторов для попапа добавить.
+const popupButtonSubmit = document.querySelector('.popup__button-save_add')
 const popupAddButton = document.querySelector(".profile__add-button");
 const popupElementAdd = document.querySelector(".popup_add");
 const popupElementContainerAdd = popupElementAdd.querySelector(
@@ -79,9 +80,7 @@ function createCard(item) {
     .querySelector(".card__button-delete")
     .addEventListener("click", handleDelete);
   itemCard.querySelector(".card__like").addEventListener("click", handelLike);
-  itemCard
-    .querySelector(".card__open-fullscreen")
-    .addEventListener("click", handleFullscreen);
+  itemCard.querySelector(".card__open-fullscreen").addEventListener("click", handleFullscreen);
   return itemCard;
 }
 
@@ -105,12 +104,9 @@ function handleDelete(evt) {
 function handleFullscreen(evt) {
   openPopup(popupFullScreen);
   const target = evt.target;
-  const cardName = target
-    .closest(".grid-cards__item")
-    .querySelector(".card__name");
   popupImage.src = target.src;
-  popupImage.alt = cardName.textContent;
-  popupImageName.textContent = cardName.textContent;
+  popupImage.alt = target.alt;
+  popupImageName.textContent = target.alt;
 }
 
 //Функция лайка.
@@ -125,6 +121,8 @@ function handleAddFormSubmit() {
     link: linkElementAdd.value,
   });
   addForm.reset();
+  popupButtonSubmit.classList.add('popup__button-save_inactive')
+  popupButtonSubmit.setAttribute("disabled", true);
 
   closePopup(popupElementAdd);
 }
@@ -137,12 +135,13 @@ addForm.addEventListener("submit", (evt) => {
 
 //Функция открытия попапа.
 function openPopup(popup) {
-  popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEsc)
+  popup.classList.add("popup_opened");
 }
 
 //Функция закрытия попапа.
 function closePopup(popup) {
+  document.removeEventListener("keydown", closePopupEsc)
   popup.classList.remove("popup_opened");
 }
 
@@ -160,7 +159,7 @@ popups.forEach((popup) => {
 
 //Функция закрытия попапа на ESC.
 function closePopupEsc(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.key === 'Escape') {
     const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   }
