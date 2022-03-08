@@ -86,4 +86,11 @@ const enableValidation = () => {
   formList.forEach(formListIterator);
 };
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form-edit',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_inactive',
+  inputErrorClass: 'popup__input-error',
+  errorClass: 'popup__input-error_active'
+});
