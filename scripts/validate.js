@@ -5,34 +5,7 @@ const objectValidation = {
   inactiveButtonClass: 'popup__button-save_inactive',
   inputErrorClass: 'popup__input-error',
   errorClass: 'popup__input-error_active',
-};
-
-const getErrorElement = (inputElement) => {
-  return inputElement.closest(".popup__block").querySelector('.popup__input-error');
-};
-
-const showError = (formElement, inputElement, errorMessage, obj) => {
-  const errorElement = getErrorElement(inputElement, objectValidation);
-
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(obj.errorClass);
-};
-
-const hideError = (formElement, inputElement, obj) => {
-  const errorElement = getErrorElement(inputElement, objectValidation);
-
-  errorElement.textContent = "";
-  errorElement.classList.remove(obj.errorClass);
-};
-
-const checkValidity = (formElement, inputElement) => {
-  const isInputNotValid = !inputElement.validity.valid;
-  if (isInputNotValid) {
-    const errorMessage = inputElement.validationMessage;
-    showError(formElement, inputElement, errorMessage, objectValidation);
-  } else {
-    hideError(formElement, inputElement, objectValidation);
-  }
+  popupSection: 'popup__block',
 };
 
 const toggleButtonState = (inputList, submitButtonElement) => {
@@ -54,8 +27,8 @@ const setEventListeners = (formElement, obj) => {
   const submitButtonElement = formElement.querySelector(obj.submitButtonSelector);
   const inputListIterator = (inputElement) => {
     const handleInput = (event) => {
-      checkValidity(formElement, inputElement);
-      toggleButtonState(inputList, submitButtonElement, objectValidation);
+      checkValidity(formElement, inputElement, obj);
+      toggleButtonState(inputList, submitButtonElement, obj);
     };
 
     inputElement.addEventListener("input", handleInput);
@@ -74,10 +47,38 @@ const enableValidation = (obj) => {
 
     formElement.addEventListener("submit", handleFormSubmit);
 
-    setEventListeners(formElement, objectValidation);
+    setEventListeners(formElement, obj);
   };
 
   formList.forEach(formListIterator);
 };
 
 enableValidation(objectValidation);
+
+const getErrorElement = (inputElement) => {
+  return inputElement.closest('.popup__block').querySelector('.popup__input-error');
+};
+
+const showError = (formElement, inputElement, errorMessage, obj) => {
+  const errorElement = getErrorElement(inputElement, obj);
+
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(obj.errorClass);
+};
+
+const hideError = (formElement, inputElement, obj) => {
+  const errorElement = getErrorElement(inputElement, obj);
+
+  errorElement.textContent = "";
+  errorElement.classList.remove(obj.errorClass);
+};
+
+const checkValidity = (formElement, inputElement, obj) => {
+  const isInputNotValid = !inputElement.validity.valid;
+  const errorMessage = inputElement.validationMessage;
+  if (isInputNotValid) {
+    showError(formElement, inputElement, errorMessage, obj);
+  } else {
+    hideError(formElement, inputElement, obj);
+  }
+};

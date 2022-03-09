@@ -41,7 +41,7 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 //Получение селекторов для попапа добавить.
-const popupButtonSubmit = document.querySelector('.popup__button-save_add')
+const cardFormSubmitButton = document.querySelector('.popup__button-save_add')
 const popupAddButton = document.querySelector(".profile__add-button");
 const popupElementAdd = document.querySelector(".popup_add");
 const popupElementContainerAdd = popupElementAdd.querySelector(
@@ -121,8 +121,8 @@ function handleAddFormSubmit() {
     link: linkElementAdd.value,
   });
   addForm.reset();
-  popupButtonSubmit.classList.add('popup__button-save_inactive')
-  popupButtonSubmit.setAttribute("disabled", true);
+  cardFormSubmitButton.classList.add('popup__button-save_inactive')
+  cardFormSubmitButton.setAttribute("disabled", true);
 
   closePopup(popupElementAdd);
 }
