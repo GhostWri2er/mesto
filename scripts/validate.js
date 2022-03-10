@@ -6,25 +6,34 @@ const objectValidation = {
   inputErrorClass: '.popup__input-error',
   errorClass: 'popup__input-error_active',
   popupSection: '.popup__block',
+  inputLineRed: 'popup__input_line_red',
 };
 
 const getErrorElement = (inputElement, obj) => {
   return inputElement.closest(obj.popupSection).querySelector(obj.inputErrorClass);
 };
 
+const getLineElement = (inputElement, obj) => {
+  return inputElement.closest(obj.popupSection).querySelector(obj.inputSelector);
+}
+
 
 const showError = (formElement, inputElement, errorMessage, obj) => {
   const errorElement = getErrorElement(inputElement, obj);
+  const lineElement = getLineElement(inputElement, obj);
 
   errorElement.textContent = errorMessage;
   errorElement.classList.add(obj.errorClass);
+  lineElement.classList.add(obj.inputLineRed);
 };
 
 const hideError = (formElement, inputElement, obj) => {
   const errorElement = getErrorElement(inputElement, obj);
+  const lineElement = getLineElement(inputElement, obj);
 
   errorElement.textContent = "";
   errorElement.classList.remove(obj.errorClass);
+  lineElement.classList.remove(obj.inputLineRed);
 };
 
 const toggleButtonState = (inputList, submitButtonElement) => {
