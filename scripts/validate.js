@@ -3,9 +3,28 @@ const objectValidation = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-save',
   inactiveButtonClass: 'popup__button-save_inactive',
-  inputErrorClass: 'popup__input-error',
+  inputErrorClass: '.popup__input-error',
   errorClass: 'popup__input-error_active',
-  popupSection: 'popup__block',
+  popupSection: '.popup__block',
+};
+
+const getErrorElement = (inputElement, obj) => {
+  return inputElement.closest(obj.popupSection).querySelector(obj.inputErrorClass);
+};
+
+
+const showError = (formElement, inputElement, errorMessage, obj) => {
+  const errorElement = getErrorElement(inputElement, obj);
+
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(obj.errorClass);
+};
+
+const hideError = (formElement, inputElement, obj) => {
+  const errorElement = getErrorElement(inputElement, obj);
+
+  errorElement.textContent = "";
+  errorElement.classList.remove(obj.errorClass);
 };
 
 const toggleButtonState = (inputList, submitButtonElement) => {
@@ -54,24 +73,6 @@ const enableValidation = (obj) => {
 };
 
 enableValidation(objectValidation);
-
-const getErrorElement = (inputElement) => {
-  return inputElement.closest('.popup__block').querySelector('.popup__input-error');
-};
-
-const showError = (formElement, inputElement, errorMessage, obj) => {
-  const errorElement = getErrorElement(inputElement, obj);
-
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(obj.errorClass);
-};
-
-const hideError = (formElement, inputElement, obj) => {
-  const errorElement = getErrorElement(inputElement, obj);
-
-  errorElement.textContent = "";
-  errorElement.classList.remove(obj.errorClass);
-};
 
 const checkValidity = (formElement, inputElement, obj) => {
   const isInputNotValid = !inputElement.validity.valid;
