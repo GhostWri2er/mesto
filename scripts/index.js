@@ -1,3 +1,16 @@
+import { FormValidator } from './FormValidator.js';
+
+const objectValidation = {
+  formSelector: '.popup__form-edit',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_inactive',
+  inputErrorClass: '.popup__input-error',
+  errorClass: 'popup__input-error_active',
+  popupSection: '.popup__block',
+  inputLineRed: 'popup__input_line_red',
+};
+
 const initialCards = [
   {
     name: "Архыз",
@@ -114,6 +127,8 @@ function handelLike(evt) {
   evt.target.classList.toggle("card__like_active");
 }
 
+
+
 //Функция для кнопки создать.
 function handleAddFormSubmit() {
   renderCard({
@@ -195,3 +210,10 @@ popupAddButton.addEventListener("click", openPopupAdd);
 
 //Слушатели кнопки сохранить
 profileForm.addEventListener("submit", handleProfileFormSubmit);
+
+const editProfileValidator = new FormValidator(objectValidation, profilePopup);
+const addCardValidator = new FormValidator(objectValidation, popupElementAdd);
+
+editProfileValidator.enableValidation();
+addCardValidator.enableValidation();
+
