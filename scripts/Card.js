@@ -1,33 +1,56 @@
+import { popupImage, popupImageName, popupFullScreen } from './consts.js';
+import { openPopup } from './utils.js'
 import {initialCards} from './InitialCards.js';
 
 export class Card {
-  constructor(name, link, cardSelector) {
-    this._name = name;
-    this._link = link;
-    this._cardSelector = cardSelector;
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._template = document.querySelector(cardSelector).content;
+  };
+
+  _handelLike = () => {
+    this._likeButton.classList.toggle("card__like_active");
+  };
+
+  _handleDelete = () => {
+    this._itemCard.remove();
   }
 
-  getTemplate() {
-    const cardElement = document
-    .querySelector('.template')
-    .content
-    .querySelector('.card')
-    .cloneNode(true);
-
-    return cardElement
+  _handleFullscreen = () => {
+    const target = evt.target;
+    popupImage.src = target.src;
+    popupImage.alt = target.alt;
+    popupImageName.textContent = target.alt;
+    openPopup(popupFullScreen);
   }
 
-  generateCard() {
-    this._element = this._getTemplate();
-
-
-    this._element.querySelector('.card__name').textContent = this.name;
-    this._element.querySelector('.card__image').src = this.link;
-    this._element.querySelector('.card__image').alt = this.name;
-
-    return this._element;
+  _setEventListeners() {
+    this._deleteButton.addEventListener("click", this._handleDelete());
+    this._likeButton.addEventListener("click", this._handelLike());
+    this._imageCard.addEventListener("click", this._handleFullscreen());
   }
-}
+
+  getCardElement () {
+    //Нашли
+    this._itemCard = this._template.cloneNode(true);
+    this._imageCard = this._itemCard.querySelector(".card__image");
+    this._deleteButton = this._itemCard.querySelector(".card__button-delete");
+    this._likeButton = this._itemCard.querySelector(".card__like");
+
+    //Заполнили
+    this._itemCard.querySelector(".card__name").textContent = this._name;
+    this._imageCard.src = this._link;
+    this._imageCard.alt = this._name;
+
+    this._setEventListeners();
+
+    //Вернули
+    return this._itemCard;
+
+  };
+
+};
 
 
 

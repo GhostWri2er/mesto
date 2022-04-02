@@ -89,11 +89,9 @@ function createCard(item) {
   imageCard.src = item.link;
   imageCard.alt = item.name;
 
-  itemCard
-    .querySelector(".card__button-delete")
-    .addEventListener("click", handleDelete);
+  itemCard.querySelector(".card__button-delete").addEventListener("click", handleDelete);
   itemCard.querySelector(".card__like").addEventListener("click", handelLike);
-  itemCard.querySelector(".card__open-fullscreen").addEventListener("click", handleFullscreen);
+  imageCard.addEventListener("click", handleFullscreen);
   return itemCard;
 }
 
@@ -115,11 +113,11 @@ function handleDelete(evt) {
 
 //Функция разворачивания на полный экран карточки.
 function handleFullscreen(evt) {
-  openPopup(popupFullScreen);
   const target = evt.target;
   popupImage.src = target.src;
   popupImage.alt = target.alt;
   popupImageName.textContent = target.alt;
+  openPopup(popupFullScreen);
 }
 
 //Функция лайка.
@@ -135,10 +133,6 @@ function handleAddFormSubmit() {
     name: nameElementAdd.value,
     link: linkElementAdd.value,
   });
-  addForm.reset();
-  cardFormSubmitButton.classList.add('popup__button-save_inactive')
-  cardFormSubmitButton.setAttribute("disabled", true);
-
   closePopup(popupElementAdd);
 }
 
@@ -192,6 +186,9 @@ const openPopupProfile = function () {
 //Функция открытия попапа добавить
 const openPopupAdd = function () {
   openPopup(popupElementAdd);
+  addForm.reset()
+  addCardValidator.disabledSubmitButton()
+
 };
 
 //Функция для кнопки сохранить и инпутов.
