@@ -1,6 +1,6 @@
 import { FormValidator } from './FormValidator.js';
 import { popupImage, popupImageName, popupFullScreen } from './consts.js';
-import { openPopup, closePopup } from './utils.js';
+import { openPopup, closePopup, closePopupEsc } from './utils.js';
 import { Card } from './card.js';
 
 const objectValidation = {
@@ -77,13 +77,23 @@ const popups = document.querySelectorAll(".popup");
 
 //Функции.
 
+const handleCardClick = (name, link) => {
+    popupImage.src = link;
+    popupImage.alt = `Изображение ${name}`;
+    popupImageName.textContent = name;
+    openPopup(popupFullScreen);
+}
+
 //Функция создания карточки.
 
+function createCard(item) {
+  const card = new Card (item, '#template', handleCardClick)
+  const cardElement = card.getCardElement()
+  return cardElement
+}
 
 function renderCard(item) {
-  const card = new Card (item, '#template')
-  const cardElement = card.getCardElement()
-  cardsElement.prepend(cardElement);
+  cardsElement.prepend(createCard(item));
 }
 
 //Функция Обхода массива карточек.

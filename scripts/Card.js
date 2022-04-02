@@ -3,9 +3,10 @@ import { openPopup } from './utils.js'
 import {initialCards} from './InitialCards.js';
 
 export class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
     this._template = document.querySelector(cardSelector).content;
   };
 
@@ -19,20 +20,15 @@ export class Card {
     evt.target.closest(".grid-cards__item").remove();
   }
 
-  //Метод открытия на весь экран.
-  _handleFullscreen = (evt) => {
-    const target = evt.target;
-    popupImage.src = target.src;
-    popupImage.alt = target.alt;
-    popupImageName.textContent = target.alt;
-    openPopup(popupFullScreen);
-  }
+
 
   //Слушатели на карточку(удалить, лайк, на весь экран)
   _setEventListeners() {
     this._deleteButton.addEventListener("click", this._handleDelete);
     this._likeButton.addEventListener("click", this._handelLike);
-    this._imageCard.addEventListener("click", this._handleFullscreen);
+    this._imageCard.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });
   }
 
   //Создание и получение карточки.
