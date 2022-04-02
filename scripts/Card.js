@@ -9,15 +9,18 @@ export class Card {
     this._template = document.querySelector(cardSelector).content;
   };
 
+  //Метод лайка.
   _handelLike = () => {
     this._likeButton.classList.toggle("card__like_active");
   };
 
-  _handleDelete = () => {
-    this._itemCard.remove();
+  //Метод удаления.
+  _handleDelete(evt) {
+    evt.target.closest(".grid-cards__item").remove();
   }
 
-  _handleFullscreen = () => {
+  //Метод открытия на весь экран.
+  _handleFullscreen = (evt) => {
     const target = evt.target;
     popupImage.src = target.src;
     popupImage.alt = target.alt;
@@ -25,12 +28,14 @@ export class Card {
     openPopup(popupFullScreen);
   }
 
+  //Слушатели на карточку(удалить, лайк, на весь экран)
   _setEventListeners() {
-    this._deleteButton.addEventListener("click", this._handleDelete());
-    this._likeButton.addEventListener("click", this._handelLike());
-    this._imageCard.addEventListener("click", this._handleFullscreen());
+    this._deleteButton.addEventListener("click", this._handleDelete);
+    this._likeButton.addEventListener("click", this._handelLike);
+    this._imageCard.addEventListener("click", this._handleFullscreen);
   }
 
+  //Создание и получение карточки.
   getCardElement () {
     //Нашли
     this._itemCard = this._template.cloneNode(true);

@@ -1,4 +1,7 @@
 import { FormValidator } from './FormValidator.js';
+import { popupImage, popupImageName, popupFullScreen } from './consts.js';
+import { openPopup, closePopup } from './utils.js';
+import { Card } from './card.js';
 
 const objectValidation = {
   formSelector: '.popup__form-edit',
@@ -54,7 +57,6 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 //Получение селекторов для попапа добавить.
-const cardFormSubmitButton = document.querySelector('.popup__button-save_add')
 const popupAddButton = document.querySelector(".profile__add-button");
 const popupElementAdd = document.querySelector(".popup_add");
 const popupElementContainerAdd = popupElementAdd.querySelector(
@@ -68,35 +70,20 @@ const linkElementAdd = popupElementContainerAdd.querySelector(
 );
 const addForm = popupElementContainerAdd.querySelector(".popup__form-edit_add");
 
-//Получение селекторов для попапа на весь экран.
-const popupFullScreen = document.querySelector(".popup-FullScreen");
-const popupImage = document.querySelector(".popup__img-FullScreen");
-const popupImageName = document.querySelector(".popup__name-FullScreen");
-
 //Получение селекторов для карточек(template)
 const template = document.querySelector(".template").content;
 const cardsElement = document.querySelector(".grid-cards");
 const popups = document.querySelectorAll(".popup");
-const cardName = document.querySelector(".card__name");
 
 //Функции.
 
 //Функция создания карточки.
-function createCard(item) {
-  const itemCard = template.cloneNode(true);
-  const imageCard = itemCard.querySelector(".card__image");
-  itemCard.querySelector(".card__name").textContent = item.name;
-  imageCard.src = item.link;
-  imageCard.alt = item.name;
 
-  itemCard.querySelector(".card__button-delete").addEventListener("click", handleDelete);
-  itemCard.querySelector(".card__like").addEventListener("click", handelLike);
-  imageCard.addEventListener("click", handleFullscreen);
-  return itemCard;
-}
 
 function renderCard(item) {
-  cardsElement.prepend(createCard(item));
+  const card = new Card (item, '#template')
+  const cardElement = card.getCardElement()
+  cardsElement.prepend(cardElement);
 }
 
 //Функция Обхода массива карточек.
@@ -105,27 +92,6 @@ function renderCards(items) {
 }
 
 renderCards(initialCards);
-
-//Функция удаления карточки.
-function handleDelete(evt) {
-  evt.target.closest(".grid-cards__item").remove();
-}
-
-//Функция разворачивания на полный экран карточки.
-function handleFullscreen(evt) {
-  const target = evt.target;
-  popupImage.src = target.src;
-  popupImage.alt = target.alt;
-  popupImageName.textContent = target.alt;
-  openPopup(popupFullScreen);
-}
-
-//Функция лайка.
-function handelLike(evt) {
-  evt.target.classList.toggle("card__like_active");
-}
-
-
 
 //Функция для кнопки создать.
 function handleAddFormSubmit() {
@@ -142,18 +108,6 @@ addForm.addEventListener("submit", (evt) => {
   handleAddFormSubmit();
 });
 
-//Функция открытия попапа.
-function openPopup(popup) {
-  document.addEventListener("keydown", closePopupEsc)
-  popup.classList.add("popup_opened");
-}
-
-//Функция закрытия попапа.
-function closePopup(popup) {
-  document.removeEventListener("keydown", closePopupEsc)
-  popup.classList.remove("popup_opened");
-}
-
 //Функция закрытия попапа на крестик и оверлей.
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
@@ -165,14 +119,6 @@ popups.forEach((popup) => {
     }
   });
 });
-
-//Функция закрытия попапа на ESC.
-function closePopupEsc(evt) {
-  if (evt.key === 'Escape') {
-    const popup = document.querySelector(".popup_opened");
-    closePopup(popup);
-  }
-}
 
 //Функция открытия попапа редактировать
 const openPopupProfile = function () {
