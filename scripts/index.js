@@ -142,7 +142,8 @@ const openPopupProfile = function () {
 //Функция открытия попапа добавить
 const openPopupAdd = function () {
   openPopup(popupElementAdd);
-  addForm.reset()
+  addForm.reset();
+  addCardValidator.resetValidation()
   addCardValidator.disabledSubmitButton()
 
 };
