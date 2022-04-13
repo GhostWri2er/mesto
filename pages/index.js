@@ -4,6 +4,7 @@ import { openPopup, closePopup } from '../utils/utils.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 //Функция открытия карточки на весь экран
 
@@ -33,37 +34,27 @@ const defaultCardList = new Section(
 
 defaultCardList.renderCards(initialCards);
 
-
-function renderCard(item) {
-  cardsElement.prepend(createCard(item));
-}
-
-//Функция для кнопки создать.
-function handleAddFormSubmit() {
-  renderCard({
-    name: nameElementAdd.value,
-    link: linkElementAdd.value,
-  });
-  closePopup(popupElementAdd);
-}
-
-//Слушатель для кнопки создать.
-addForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  handleAddFormSubmit();
+const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
+  handlerFormSubmit: () => {
+    const item = createCard({
+      name: nameElementAdd.value,
+      link: linkElementAdd.value
+    });
+    defaultCardList.addItems(item);
+  }
 });
+popupWithFormAdd.setEventListeners()
 
-//Функция закрытия попапа на крестик и оверлей.
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains("popup__close")) {
-      closePopup(popup);
-    }
-  });
+const popupWithFormEdit = new PopupWithForm(profilePopup, {
+  handlerFormSubmit: () => {
+    ({
+      name: nameInput.value,
+      description: jobInput.value
+    });
+  }
 });
+popupWithFormEdit.setEventListeners()
+
 
 //Функция открытия попапа редактировать
 const openPopupProfile = function () {
