@@ -1,6 +1,5 @@
-import { popupImage, popupImageName, popupFullScreen } from './consts.js';
-import { openPopup } from './utils.js'
-import {initialCards} from './InitialCards.js';
+import { popupImage, popupImageName, popupFullScreen, initialCards } from '../utils/consts.js';
+import { openPopup } from '../utils/utils.js'
 
 export class Card {
   constructor(data, cardSelector, handleCardClick) {
@@ -27,7 +26,7 @@ export class Card {
     this._deleteButton.addEventListener("click", this._handleDelete);
     this._likeButton.addEventListener("click", this._handelLike);
     this._imageCard.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link)
+    this._handleCardClick(this._name, this._link)
     });
   }
 
