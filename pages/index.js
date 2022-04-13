@@ -55,25 +55,6 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
 });
 popupWithFormEdit.setEventListeners()
 
-
-//Функция открытия попапа редактировать
-const openPopupProfile = function () {
-  const name = nameElement.textContent;
-  const description = jobElement.textContent;
-  nameInput.value = name;
-  jobInput.value = description;
-  openPopup(profilePopup);
-};
-
-//Функция открытия попапа добавить
-const openPopupAdd = function () {
-  openPopup(popupElementAdd);
-  addForm.reset();
-  addCardValidator.resetValidation()
-  addCardValidator.disabledSubmitButton()
-
-};
-
 //Функция для кнопки сохранить и инпутов.
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -83,10 +64,21 @@ function handleProfileFormSubmit(evt) {
 }
 
 //Слушатели для открытия и закрытия попапа редактировать.
-popupEditButton.addEventListener("click", openPopupProfile);
+popupEditButton.addEventListener("click", () =>{
+  popupWithFormEdit.open();
+  const name = nameElement.textContent;
+  const description = jobElement.textContent;
+  nameInput.value = name;
+  jobInput.value = description;
+  editProfileValidator.disabledSubmitButton()
+});
 
-//Слушатели для открытия и закрытия попапа добавить.
-popupAddButton.addEventListener("click", openPopupAdd);
+popupAddButton.addEventListener("click", () =>{
+  popupWithFormAdd.open();
+  addForm.reset();
+  addCardValidator.resetValidation()
+  addCardValidator.disabledSubmitButton()
+});
 
 //Слушатели кнопки сохранить
 profileForm.addEventListener("submit", handleProfileFormSubmit);
