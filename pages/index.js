@@ -3,14 +3,14 @@ import { popupImage, popupImageName, popupFullScreen, objectValidation, initialC
 import { openPopup, closePopup } from '../utils/utils.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 //Функция открытия карточки на весь экран
 
-const handleCardClick = (name, link) => {
-    popupImage.src = link;
-    popupImage.alt = `Изображение ${name}`;
-    popupImageName.textContent = name;
-    openPopup(popupFullScreen);
+const popupWithImage = new PopupWithImage(popupFullScreen);
+
+const handleCardClick = (name, link) => {  
+  popupWithImage.open(name, link);
 }
 
 //Функция создания карточки.
@@ -23,7 +23,7 @@ function createCard(item) {
 
 const defaultCardList = new Section(
 {
-  data: initialCards,
+  items: initialCards,
   renderer: (item) => {
     const cardElement = createCard(item);
     defaultCardList.addItems(cardElement);
