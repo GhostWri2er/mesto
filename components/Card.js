@@ -1,5 +1,4 @@
 import { popupImage, popupImageName, popupFullScreen, initialCards } from '../utils/consts.js';
-import { openPopup } from '../utils/utils.js'
 
 export class Card {
   constructor(data, cardSelector, handleCardClick) {

@@ -1,6 +1,5 @@
 import { FormValidator } from '../components/FormValidator.js';
 import { popupImage, popupImageName, popupFullScreen, objectValidation, initialCards, profilePopup, popupEditButton, nameElement, jobElement, profileForm, nameInput, jobInput, profileName, profileDescription, popupAddButton, popupElementAdd, nameElementAdd, linkElementAdd, addForm, template, cardsElement, popups } from '../utils/consts.js';
-import { openPopup, closePopup } from '../utils/utils.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
