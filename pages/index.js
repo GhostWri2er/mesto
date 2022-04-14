@@ -5,14 +5,15 @@ import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js'
 
-//Функция открытия карточки на весь экран
-
+//Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
 
 const handleCardClick = (name, link) => {  
   popupWithImage.open(name, link);
 }
+popupWithImage.setEventListeners();
 
 //Функция создания карточки.
 
@@ -31,8 +32,9 @@ const defaultCardList = new Section(
   },
 } , cardsElement );
 
-
 defaultCardList.renderCards(initialCards);
+
+
 
 const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
   handlerFormSubmit: () => {
@@ -45,34 +47,25 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
 });
 popupWithFormAdd.setEventListeners()
 
+
+
 const popupWithFormEdit = new PopupWithForm(profilePopup, {
-  handlerFormSubmit: () => {
-    ({
-      name: nameInput.value,
-      description: jobInput.value
-    });
+  handlerFormSubmit: (input) => {
+    userInfo.setUserInfo(input.name, input.description);
   }
 });
-popupWithFormEdit.setEventListeners()
 
-//Функция для кнопки сохранить и инпутов.
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
-  closePopup(profilePopup);
-}
-
-//Слушатели для открытия и закрытия попапа редактировать.
-popupEditButton.addEventListener("click", () =>{
+//Кнопка редактировать.
+popupEditButton.addEventListener("click", () => {
+  const {name, description } = userInfo.getUserInfo()
   popupWithFormEdit.open();
-  const name = nameElement.textContent;
-  const description = jobElement.textContent;
   nameInput.value = name;
   jobInput.value = description;
   editProfileValidator.disabledSubmitButton()
 });
+popupWithFormEdit.setEventListeners();
 
+//Кнопка добавить.
 popupAddButton.addEventListener("click", () =>{
   popupWithFormAdd.open();
   addForm.reset();
@@ -80,12 +73,15 @@ popupAddButton.addEventListener("click", () =>{
   addCardValidator.disabledSubmitButton()
 });
 
-//Слушатели кнопки сохранить
-profileForm.addEventListener("submit", handleProfileFormSubmit);
+// Класс UserInfo
+const userInfo = new UserInfo ({ userName: ".profile__name",  aboutUser: ".profile__description" })
+console.log(userInfo)
 
+//Классы Валидации форм
 const editProfileValidator = new FormValidator(objectValidation, profilePopup);
 const addCardValidator = new FormValidator(objectValidation, popupElementAdd);
 
+//Вызов валидации на обоих попапах.
 editProfileValidator.enableValidation();
 addCardValidator.enableValidation();
 
