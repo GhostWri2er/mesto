@@ -1,3 +1,4 @@
+import './index.css';
 import { FormValidator } from '../components/FormValidator.js';
 import { popupFullScreen, objectValidation, initialCards, profilePopup, popupEditButton, nameInput, jobInput, popupAddButton, popupElementAdd, nameElementAdd, linkElementAdd, addForm, cardsElement, } from '../utils/consts.js';
 import { Card } from '../components/Card.js';
