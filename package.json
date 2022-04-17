@@ -1,0 +1,28 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "project mesto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GhostWri2er/mesto.git"
+  },
+  "keywords": [
+    "mesto",
+    "js",
+    "yandexpracticum"
+  ],
+  "author": "Ivan Mironovich <ivanmironovich@vk.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GhostWri2er/mesto/issues"
+  },
+  "homepage": "https://github.com/GhostWri2er/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
