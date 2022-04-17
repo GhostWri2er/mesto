@@ -5,7 +5,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js'
-
+console.log('Hello, World!')
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
 
