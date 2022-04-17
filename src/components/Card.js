@@ -3,7 +3,8 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
-    this._template = document.querySelector(cardSelector).content;
+    this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
+    this._handleDelete = this._handleDelete.bind(this)
   };
 
   //Метод лайка.
@@ -12,8 +13,9 @@ export class Card {
   };
 
   //Метод удаления.
-  _handleDelete(evt) {
-    evt.target.closest(".grid-cards__item").remove();
+  _handleDelete() {
+    this._itemCard.remove();
+    this._itemCard = null;
   }
 
 

@@ -6,7 +6,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js'
-console.log('Hello, World!')
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
 
@@ -75,7 +74,6 @@ popupAddButton.addEventListener("click", () =>{
 
 // Класс UserInfo
 const userInfo = new UserInfo ({ userName: ".profile__name",  aboutUser: ".profile__description" })
-console.log(userInfo)
 
 //Классы Валидации форм
 const editProfileValidator = new FormValidator(objectValidation, profilePopup);
