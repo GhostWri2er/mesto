@@ -1,4 +1,5 @@
 .card__like {
+  display: flex;
   background-image: url(../../../images/LikeNoActive.svg);
   background-repeat: no-repeat;
   background-size: 22px 19px;

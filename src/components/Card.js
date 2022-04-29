@@ -4,6 +4,7 @@ export class Card {
     this._link = data.link;
     this._handleCardClick = handleCardClick;
     this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
+
     this._handleDelete = this._handleDelete.bind(this)
   };
 
