@@ -9,7 +9,7 @@ import UserInfo from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-40',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-40/',
   headers: {
     authorization: '8a35d6a5-9675-4746-b567-877f8304d5ec',
     'Content-Type': 'application/json'
@@ -28,6 +28,12 @@ cards.then((data) => {
     } , cardsElement);
     
     defaultCardList.renderCards(data);
+}).catch((err) => alert(err));
+
+
+api.getUserInfo()
+  .then((userInform) => {
+  userInfo.setUserInfo(userInform.name, userInform.about)
 }).catch((err) => alert(err));
 
 //Класс открытия карточки на весь экран
