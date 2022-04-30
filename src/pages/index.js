@@ -33,7 +33,7 @@ cards.then((data) => {
 
 api.getUserInfo()
   .then((userInform) => {
-  userInfo.setUserInfo(userInform.name, userInform.about)
+  userInfo.setUserInfo({ user: userInform})
 }).catch((err) => alert(err));
 
 //Класс открытия карточки на весь экран
@@ -68,8 +68,11 @@ popupWithFormAdd.setEventListeners()
 
 
 const popupWithFormEdit = new PopupWithForm(profilePopup, {
-  handlerFormSubmit: (input) => {
-    userInfo.setUserInfo(input.name, input.description);
+  handlerFormSubmit: (data) => {
+    api.setUserInfoServer({user: data})
+    .then((data) => {
+    userInfo.setUserInfo({user: data});
+  }).catch((err) => alert(err));
   }
 });
 

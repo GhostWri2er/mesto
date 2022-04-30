@@ -20,6 +20,18 @@ export class Api {
       }).then(this._errorHandler)
     }
 
+    setUserInfoServer({ user }) {
+      return fetch(`${this._baseUrl}users/me`,
+      { 
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: user.name,
+          about: user.description
+        })
+      }).then(this._errorHandler)
+    }
+
     addCard(data) {
       return fetch(`${this._baseUrl}cards`,
       { 
