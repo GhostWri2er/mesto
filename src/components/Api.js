@@ -23,28 +23,30 @@ export class Api {
       .catch(console.log)
     }
 
-    setUserInfoServer({ user }) {
+    editProfile(name, about) {
       return fetch(`${this._baseUrl}users/me`,
       { 
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          name: user.name,
-          about: user.description
+          name,
+          about
         })
       }).then(this._errorHandler)
+      .catch(console.log)
     }
 
-    addCard(dataCard) {
+    addCard(name, link) {
       return fetch(`${this._baseUrl}cards`,
       { 
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify({
-          name: dataCard.name,
-          link: dataCard.link
+          name,
+          link
         })
       }).then(this._errorHandler)
+      .catch(console.log)
     }
 
     _errorHandler(res) {

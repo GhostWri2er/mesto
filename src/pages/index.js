@@ -69,11 +69,18 @@ const section = new Section(
 
 const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
   handlerFormSubmit: (data) => {
-    const item = createCard({
-      name: data['place'],
-      link: data.link
-    });
-    section.addItems(item);
+    
+    api.addCard(data['place'], data.link)
+    .then(res => {
+      console.log('res', res)
+      const item = createCard({
+        name: res.name,
+        link: res.link
+      });
+      section.addItems(item);
+    })
+
+    
   }
 });
 popupWithFormAdd.setEventListeners()
@@ -82,10 +89,11 @@ popupWithFormAdd.setEventListeners()
 
 const popupWithFormEdit = new PopupWithForm(profilePopup, {
   handlerFormSubmit: (data) => {
-    api.setUserInfoServer({user: data})
-    .then((data) => {
-    userInfo.setUserInfo(data.name, data.about);
-  }).catch((err) => alert(err));
+    const {name, description} = data;
+    api.editProfile(name, description)
+    .then(() => {
+    userInfo.setUserInfo(name, description);
+  })
   }
 });
 
