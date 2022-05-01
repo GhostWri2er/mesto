@@ -1,6 +1,6 @@
 import './index.css';
 import { FormValidator } from '../components/FormValidator.js';
-import { popupFullScreen, objectValidation, profilePopup, popupEditButton, nameInput, jobInput, popupAddButton, popupElementAdd, nameElementAdd, linkElementAdd, addForm, cardsElement, } from '../utils/consts.js';
+import { popupFullScreen, objectValidation, profilePopup, popupEditButton, nameInput, jobInput, popupAddButton, popupElementAdd, nameElementAdd, linkElementAdd, addForm, cardsElement, initialCards } from '../utils/consts.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -16,25 +16,28 @@ const api = new Api({
   }
 }); 
 
-const cards = api.getInitialCards();
-cards.then((data) => {
-  const defaultCardList = new Section(
-    {
-      items: data,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        defaultCardList.addItems(cardElement);
-      },
-    } , cardsElement);
-    
-    defaultCardList.renderCards(data);
-}).catch((err) => alert(err));
+api.getProfile()
+.then(res => {
+  userInfo.setUserInfo(res.name, res.about)
+})
+
+api.getCards()
+.then(cardList => {
+  cardList.forEach(data =>{
+    const item = createCard({
+      name: data.name,
+      link: data.link
+    });
+    section.addItems(item)
+  })
+})
 
 
-api.getUserInfo()
-  .then((userInform) => {
-  userInfo.setUserInfo({ user: userInform})
-}).catch((err) => alert(err));
+
+// api.getProfile()
+//   .then((userInform) => {
+//   userInfo.setUserInfo({ user: userInform})
+// }).catch((err) => alert(err));
 
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
@@ -52,15 +55,25 @@ function createCard(item) {
   return cardElement
 }
 
+const section = new Section(
+  {
+    items: [],
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      section.addItems(cardElement);
+    },
+  } , '.grid-cards');
+  section.renderItems(initialCards);
+
 
 
 const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
-  handlerFormSubmit: () => {
+  handlerFormSubmit: (data) => {
     const item = createCard({
-      name: nameElementAdd.value,
-      link: linkElementAdd.value
+      name: data['place'],
+      link: data.link
     });
-    defaultCardList.addItems(item);
+    section.addItems(item);
   }
 });
 popupWithFormAdd.setEventListeners()
@@ -71,17 +84,17 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
   handlerFormSubmit: (data) => {
     api.setUserInfoServer({user: data})
     .then((data) => {
-    userInfo.setUserInfo({user: data});
+    userInfo.setUserInfo(data.name, data.about);
   }).catch((err) => alert(err));
   }
 });
 
 //Кнопка редактировать.
 popupEditButton.addEventListener("click", () => {
-  const {name, description } = userInfo.getUserInfo()
-  popupWithFormEdit.open();
+  const { name, description } = userInfo.getUserInfo()
   nameInput.value = name;
   jobInput.value = description;
+  popupWithFormEdit.open();
   editProfileValidator.disabledSubmitButton()
 });
 popupWithFormEdit.setEventListeners();

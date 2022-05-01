@@ -4,20 +4,23 @@ export class Api {
         this._headers = config.headers;
     }
 
-    getUserInfo() {
+    getProfile() {
       return fetch(`${this._baseUrl}users/me`,
       { 
         method: 'GET',
         headers: this._headers 
-      }).then(this._errorHandler)
+      }
+      ).then(this._errorHandler)
+      .catch(console.log)
     }
 
-    getInitialCards() {
+    getCards() {
       return fetch(`${this._baseUrl}cards`,
       { 
         method: 'GET',
         headers: this._headers 
       }).then(this._errorHandler)
+      .catch(console.log)
     }
 
     setUserInfoServer({ user }) {
@@ -32,12 +35,15 @@ export class Api {
       }).then(this._errorHandler)
     }
 
-    addCard(data) {
+    addCard(dataCard) {
       return fetch(`${this._baseUrl}cards`,
       { 
         method: 'POST',
         headers: this._headers,
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          name: dataCard.name,
+          link: dataCard.link
+        })
       }).then(this._errorHandler)
     }
 
