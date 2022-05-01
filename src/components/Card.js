@@ -2,6 +2,7 @@ export class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._handleCardClick = handleCardClick;
     this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
 
@@ -30,6 +31,11 @@ export class Card {
     });
   }
 
+  _setLikes() {
+    const likeCountElement = this._template.querySelector('.card__like_score')
+    likeCountElement.textContent = this._likes.length;
+  }
+
   //Создание и получение карточки.
   getCardElement () {
     //Нашли
@@ -42,6 +48,8 @@ export class Card {
     this._itemCard.querySelector(".card__name").textContent = this._name;
     this._imageCard.src = this._link;
     this._imageCard.alt = this._name;
+
+    this._setLikes();
 
     this._setEventListeners();
 

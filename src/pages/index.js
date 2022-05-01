@@ -26,7 +26,8 @@ api.getCards()
   cardList.forEach(data =>{
     const item = createCard({
       name: data.name,
-      link: data.link
+      link: data.link,
+      likes: data.likes
     });
     section.addItems(item)
   })
@@ -75,7 +76,9 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
       console.log('res', res)
       const item = createCard({
         name: res.name,
-        link: res.link
+        link: res.link,
+        likes: res.likes
+        
       });
       section.addItems(item);
     })
