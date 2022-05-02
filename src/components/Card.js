@@ -3,6 +3,7 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data.id;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
     this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
@@ -16,16 +17,16 @@ export class Card {
   };
 
   //Метод удаления.
-  // _handleDelete() {
-  //   this._itemCard.remove();
-  //   this._itemCard = null;
-  // }
+  deleteCard() {
+    this._itemCard.remove();
+    this._itemCard = null;
+  }
 
 
 
   //Слушатели на карточку(удалить, лайк, на весь экран)
   _setEventListeners() {
-    this._deleteButton.addEventListener("click", () => this._handleDeleteCard());
+    this._deleteButton.addEventListener("click", () => this._handleDeleteCard(this._id));
     this._likeButton.addEventListener("click", this._handelLike);
     this._imageCard.addEventListener('click', () => {
     this._handleCardClick(this._name, this._link)

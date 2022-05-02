@@ -27,9 +27,9 @@ api.getCards()
     const item = createCard({
       name: data.name,
       link: data.link,
-      likes: data.likes
+      likes: data.likes,
+      id: data._id
     });
-    
     section.addItems(item)
   })
 })
@@ -43,13 +43,21 @@ const handleCardClick = (name, link) => {
 popupWithImage.setEventListeners();
 
 const handleDeleteCard = () => {
-  popupWithFormDelete.open();
+  
 }
 
 //Функция создания карточки.
 
 function createCard(item) {
-  const card = new Card (item, '#template', handleCardClick, handleDeleteCard)
+  const card = new Card (item, '#template', handleCardClick, (id) => {
+    popupWithFormDelete.changeSubmitHandler(() => {
+      api.deleteCard(id)
+      .then(res => {
+        card.deleteCard()
+      })
+    })
+    popupWithFormDelete.open();
+  })
   const cardElement = card.getCardElement()
   return cardElement
 }
@@ -75,7 +83,8 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
       const item = createCard({
         name: res.name,
         link: res.link,
-        likes: res.likes
+        likes: res.likes,
+        id: res._id
         
       });
       section.addItems(item);
@@ -99,8 +108,14 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
 });
 const deletePopup = document.querySelector('.popup_type_delete_cards');
 const deleteCard = document.querySelector('.card__button-delete');
-const popupWithFormDelete = new PopupWithForm(deletePopup, () => {
-  console.log('delete')
+const popupWithFormDelete = new PopupWithForm(deletePopup, {
+  handlerFormSubmit: () => {
+    api.deleteCard(id)
+    .then(res => {
+      console.log('res', res)
+    })
+  //console.log('delete')
+  }
 })
 popupWithFormDelete.setEventListeners()
 
