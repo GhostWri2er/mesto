@@ -58,6 +58,24 @@ export class Api {
       .catch(console.log)
     }
 
+    addLike(id) {
+      return fetch(`${this._baseUrl}cards/${id}/likes`,
+      { 
+        method: 'PUT',
+        headers: this._headers
+      }).then(this._errorHandler)
+      .catch(console.log)
+    }
+
+    deleteLike(id) {
+      return fetch(`${this._baseUrl}cards/${id}/likes`,
+      { 
+        method: 'DELETE',
+        headers: this._headers
+      }).then(this._errorHandler)
+      .catch(console.log)
+    }
+
     _errorHandler(res) {
         if (res.ok) {
           return res.json()

@@ -59,6 +59,21 @@ function createCard(item) {
       })
     })
     popupWithFormDelete.open();
+  },
+  (id) => {
+    if(card.isLiked()) {
+      api.deleteLike(id)
+      .then(res => {
+      card.setLikes(res.likes)
+    })
+    } else {
+      api.addLike(id)
+      .then(res => {
+      card.setLikes(res.likes)
+    })
+    }
+    
+
   })
   const cardElement = card.getCardElement()
   return cardElement
@@ -81,7 +96,6 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
     
     api.addCard(data['place'], data.link)
     .then(res => {
-      console.log('res', res)
       const item = createCard({
         name: res.name,
         link: res.link,
