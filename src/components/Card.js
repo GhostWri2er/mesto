@@ -4,6 +4,8 @@ export class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._id = data.id;
+    this._userId = data.userId;
+    this._ownerId = data.ownerId;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
     this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
@@ -54,6 +56,10 @@ export class Card {
     this._setLikes();
 
     this._setEventListeners();
+
+    if(this._ownerId !== this._userId) {
+      this._deleteButton.style.display = 'none';
+    }
 
     //Вернули
     return this._itemCard;

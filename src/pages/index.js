@@ -16,9 +16,12 @@ const api = new Api({
   }
 }); 
 
+let userId;
+
 api.getProfile()
 .then(res => {
   userInfo.setUserInfo(res.name, res.about)
+  userId = res._id
 })
 
 api.getCards()
@@ -28,7 +31,9 @@ api.getCards()
       name: data.name,
       link: data.link,
       likes: data.likes,
-      id: data._id
+      id: data._id,
+      userId: userId,
+      ownerId: data.owner._id
     });
     section.addItems(item)
   })
@@ -42,9 +47,6 @@ const handleCardClick = (name, link) => {
 }
 popupWithImage.setEventListeners();
 
-const handleDeleteCard = () => {
-  
-}
 
 //Функция создания карточки.
 
@@ -70,7 +72,7 @@ const section = new Section(
       section.addItems(cardElement);
     },
   } , '.grid-cards');
-  section.renderItems(initialCards);
+  
 
 
 
@@ -84,7 +86,9 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
         name: res.name,
         link: res.link,
         likes: res.likes,
-        id: res._id
+        id: res._id,
+        userId: userId,
+        ownerId: res.owner._id
         
       });
       section.addItems(item);
