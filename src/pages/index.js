@@ -29,16 +29,10 @@ api.getCards()
       link: data.link,
       likes: data.likes
     });
+    
     section.addItems(item)
   })
 })
-
-
-
-// api.getProfile()
-//   .then((userInform) => {
-//   userInfo.setUserInfo({ user: userInform})
-// }).catch((err) => alert(err));
 
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
@@ -48,10 +42,14 @@ const handleCardClick = (name, link) => {
 }
 popupWithImage.setEventListeners();
 
+const handleDeleteCard = () => {
+  popupWithFormDelete.open();
+}
+
 //Функция создания карточки.
 
 function createCard(item) {
-  const card = new Card (item, '#template', handleCardClick)
+  const card = new Card (item, '#template', handleCardClick, handleDeleteCard)
   const cardElement = card.getCardElement()
   return cardElement
 }
@@ -99,6 +97,12 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
   })
   }
 });
+const deletePopup = document.querySelector('.popup_type_delete_cards');
+const deleteCard = document.querySelector('.card__button-delete');
+const popupWithFormDelete = new PopupWithForm(deletePopup, () => {
+  console.log('delete')
+})
+popupWithFormDelete.setEventListeners()
 
 //Кнопка редактировать.
 popupEditButton.addEventListener("click", () => {
