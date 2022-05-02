@@ -76,6 +76,18 @@ export class Api {
       .catch(console.log)
     }
 
+    updateAvatar(avatar) {
+      return fetch(`${this._baseUrl}users/me/avatar`,
+      { 
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar 
+        })
+      }).then(this._errorHandler)
+      .catch(console.log)
+    }
+
     _errorHandler(res) {
         if (res.ok) {
           return res.json()
@@ -84,5 +96,7 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
         
       }
+
+      
 
 }

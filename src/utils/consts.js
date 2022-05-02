@@ -1,31 +1,3 @@
-//Массив карточек
-export const initialCards = [
-    {
-      name: "Архыз",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-    },
-    {
-      name: "Челябинская область",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-    },
-    {
-      name: "Иваново",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-    },
-    {
-      name: "Камчатка",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-    },
-    {
-      name: "Холмогорский район",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-    },
-    {
-      name: "Байкал",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-    },
-  ];
-
 //Объект настроек
 export const objectValidation = {
     formSelector: '.popup__form-edit',
@@ -68,3 +40,9 @@ export const popups = document.querySelectorAll(".popup");
 export const popupImage = document.querySelector(".popup__img-FullScreen");
 export const popupImageName = document.querySelector(".popup__name-FullScreen");
 export const popupFullScreen = document.querySelector(".popup-FullScreen");
+
+export const deletePopup = document.querySelector('.popup_type_delete_cards');
+export const editAvatar = document.querySelector('.popup_edit_avatar');
+export const editAvatarButton = document.querySelector('.profile__edit_button_avatar');
+export const avatarForm = document.querySelector('.popup__form-edit-avatar');
+export const profileAvatar = document.querySelector('.profile__avatar')

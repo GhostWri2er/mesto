@@ -1,6 +1,6 @@
 import './index.css';
 import { FormValidator } from '../components/FormValidator.js';
-import { popupFullScreen, objectValidation, profilePopup, popupEditButton, nameInput, jobInput, popupAddButton, popupElementAdd, nameElementAdd, linkElementAdd, addForm, cardsElement, initialCards } from '../utils/consts.js';
+import { popupFullScreen, objectValidation, profilePopup, popupEditButton, nameInput, jobInput, popupAddButton, popupElementAdd, addForm, deletePopup, editAvatar, editAvatarButton, avatarForm } from '../utils/consts.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -20,7 +20,7 @@ let userId;
 
 api.getProfile()
 .then(res => {
-  userInfo.setUserInfo(res.name, res.about)
+  userInfo.setUserInfo(res.name, res.about, res.avatar)
   userId = res._id
 })
 
@@ -54,7 +54,7 @@ function createCard(item) {
   const card = new Card (item, '#template', handleCardClick, (id) => {
     popupWithFormDelete.changeSubmitHandler(() => {
       api.deleteCard(id)
-      .then(res => {
+      .then(() => {
         card.deleteCard()
       })
     })
@@ -93,6 +93,7 @@ const section = new Section(
 
 const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
   handlerFormSubmit: (data) => {
+    console.log(data)
     
     api.addCard(data['place'], data.link)
     .then(res => {
@@ -124,18 +125,27 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
   })
   }
 });
-const deletePopup = document.querySelector('.popup_type_delete_cards');
-const deleteCard = document.querySelector('.card__button-delete');
+
 const popupWithFormDelete = new PopupWithForm(deletePopup, {
   handlerFormSubmit: () => {
     api.deleteCard(id)
     .then(res => {
       console.log('res', res)
     })
-  //console.log('delete')
   }
-})
+});
 popupWithFormDelete.setEventListeners()
+
+const popupWithFormEditAvatar = new PopupWithForm(editAvatar, {
+  handlerFormSubmit: (data) => {
+    const {link} = data; 
+    api.updateAvatar(link)
+    .then((res) => {
+      userInfo.setUserInfo(res.name, res.about, res.avatar)
+    })
+}
+})
+popupWithFormEditAvatar.setEventListeners()
 
 //Кнопка редактировать.
 popupEditButton.addEventListener("click", () => {
@@ -155,14 +165,27 @@ popupAddButton.addEventListener("click", () =>{
   addCardValidator.disabledSubmitButton()
 });
 
+//Кнопка редактировать аватар.
+editAvatarButton.addEventListener("click", () =>{
+  popupWithFormEditAvatar.open()
+  avatarForm.reset();
+  avatarValidator.resetValidation();
+  avatarValidator.disabledSubmitButton();
+
+})
+
+
+
 // Класс UserInfo
-const userInfo = new UserInfo ({ userName: ".profile__name",  aboutUser: ".profile__description" })
+const userInfo = new UserInfo ({ userName: ".profile__name",  aboutUser: ".profile__description", userAvatar: '.profile__avatar' })
 
 //Классы Валидации форм
 const editProfileValidator = new FormValidator(objectValidation, profilePopup);
 const addCardValidator = new FormValidator(objectValidation, popupElementAdd);
+const avatarValidator = new FormValidator(objectValidation, editAvatar);
 
-//Вызов валидации на обоих попапах.
+//Вызов валидации на попапах.
 editProfileValidator.enableValidation();
 addCardValidator.enableValidation();
+avatarValidator.enableValidation();
 

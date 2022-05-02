@@ -14,17 +14,18 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
+          <img 
             class="profile__avatar"
             src="<%=require('./images/photo_profile.jpg')%>"
             alt="Аватар профиля"
           />
+          <button type="button" class="profile__edit_button_avatar"></button>
           <div class="profile__info">
             <div class="profile__item">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button class="profile__edit-button" type="button"></button>
             </div>
-            <h2 class="profile__description">Исследователь океана</h2>
+            <h2 class="profile__description"></h2>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
@@ -160,6 +161,39 @@
             type="submit"
           >
             Да
+          </button>
+        </form>
+      </div>
+    </div>
+<!--Попап редактировать аватар-->
+    <div class="popup popup_edit_avatar">
+      <div class="popup__container">
+        <form
+          class="popup__form-edit popup__form-edit-avatar"
+          method="post"
+          novalidate
+        >
+          <button
+            class="popup__button-close popup__close"
+            type="button"
+          ></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <div class="popup__block">
+            <input
+              class="popup__input popup__input-description popup__input-description_add"
+              id="link-error"
+              type="url"
+              name="link"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="popup__input-error"></span>
+          </div>
+          <button
+            class="popup__button-save popup__button-save_add"
+            type="submit"
+          >
+            Сохранить
           </button>
         </form>
       </div>
