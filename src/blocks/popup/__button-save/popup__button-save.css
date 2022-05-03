@@ -28,3 +28,7 @@
     margin-bottom: 37px;
   }
 }
+
+.popup__button-save_delete {
+  margin-top: 0;
+}

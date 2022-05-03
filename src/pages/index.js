@@ -17,13 +17,14 @@ const api = new Api({
 }); 
 
 let userId;
-
+//Получаем данные профиля.
 api.getProfile()
 .then(res => {
   userInfo.setUserInfo(res.name, res.about, res.avatar)
   userId = res._id
-})
+});
 
+//Получаем карточки.
 api.getCards()
 .then(cardList => {
   cardList.forEach(data =>{
@@ -90,11 +91,11 @@ const section = new Section(
   
 
 
-
+//Попап добавления карточки.
 const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
   handlerFormSubmit: (data) => {
     console.log(data)
-    
+    popupWithFormAdd.loading(true)
     api.addCard(data['place'], data.link)
     .then(res => {
       const item = createCard({
@@ -108,6 +109,7 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
       });
       section.addItems(item);
     })
+    .finally( () => popupWithFormAdd.loading(false))
 
     
   }
@@ -115,34 +117,43 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
 popupWithFormAdd.setEventListeners()
 
 
-
+//Попап редактирования профиля.
 const popupWithFormEdit = new PopupWithForm(profilePopup, {
   handlerFormSubmit: (data) => {
+    popupWithFormEdit.loading(true)
     const {name, description} = data;
     api.editProfile(name, description)
     .then(() => {
     userInfo.setUserInfo(name, description);
   })
+  .finally( () => popupWithFormEdit.loading(false))
   }
 });
 
+//Попап удаления карточки.
 const popupWithFormDelete = new PopupWithForm(deletePopup, {
   handlerFormSubmit: () => {
+    popupWithFormDelete.loading(true)
     api.deleteCard(id)
     .then(res => {
       console.log('res', res)
     })
+    .finally( () => popupWithFormDelete.loading(false))
   }
 });
 popupWithFormDelete.setEventListeners()
 
+
+//Попап редактирование аватара
 const popupWithFormEditAvatar = new PopupWithForm(editAvatar, {
   handlerFormSubmit: (data) => {
+    popupWithFormEditAvatar.loading(true)
     const {link} = data; 
     api.updateAvatar(link)
     .then((res) => {
       userInfo.setUserInfo(res.name, res.about, res.avatar)
     })
+    .finally( () => popupWithFormEditAvatar.loading(false))
 }
 })
 popupWithFormEditAvatar.setEventListeners()

@@ -17,3 +17,7 @@
     margin: 0;
   }
 }
+
+.popup__title_delete {
+  padding-bottom: 38px;
+}

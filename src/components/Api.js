@@ -3,6 +3,9 @@ export class Api {
         this._baseUrl = config.baseUrl;
         this._headers = config.headers;
     }
+//Запросы
+
+//Получение данных
 
     getProfile() {
       return fetch(`${this._baseUrl}users/me`,
@@ -14,6 +17,8 @@ export class Api {
       .catch(console.log)
     }
 
+//Получение карточек
+
     getCards() {
       return fetch(`${this._baseUrl}cards`,
       { 
@@ -22,6 +27,8 @@ export class Api {
       }).then(this._errorHandler)
       .catch(console.log)
     }
+
+//Редактировать профиль
 
     editProfile(name, about) {
       return fetch(`${this._baseUrl}users/me`,
@@ -36,6 +43,8 @@ export class Api {
       .catch(console.log)
     }
 
+//Добавить карточку.
+
     addCard(name, link) {
       return fetch(`${this._baseUrl}cards`,
       { 
@@ -49,6 +58,8 @@ export class Api {
       .catch(console.log)
     }
 
+//Удалить карточку
+
     deleteCard(id) {
       return fetch(`${this._baseUrl}cards/${id}`,
       { 
@@ -57,6 +68,8 @@ export class Api {
       }).then(this._errorHandler)
       .catch(console.log)
     }
+
+//Поставить лайк
 
     addLike(id) {
       return fetch(`${this._baseUrl}cards/${id}/likes`,
@@ -67,6 +80,8 @@ export class Api {
       .catch(console.log)
     }
 
+//Удалить лайк
+  
     deleteLike(id) {
       return fetch(`${this._baseUrl}cards/${id}/likes`,
       { 
@@ -75,6 +90,8 @@ export class Api {
       }).then(this._errorHandler)
       .catch(console.log)
     }
+
+//Изменить аватар
 
     updateAvatar(avatar) {
       return fetch(`${this._baseUrl}users/me/avatar`,
@@ -87,6 +104,8 @@ export class Api {
       }).then(this._errorHandler)
       .catch(console.log)
     }
+
+//Ошибки
 
     _errorHandler(res) {
         if (res.ok) {
