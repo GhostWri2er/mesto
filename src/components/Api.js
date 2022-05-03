@@ -13,8 +13,7 @@ export class Api {
         method: 'GET',
         headers: this._headers 
       }
-      ).then(this._errorHandler)
-      .catch(console.log)
+      ).then(this._checkRespose)
     }
 
 //Получение карточек
@@ -24,8 +23,7 @@ export class Api {
       { 
         method: 'GET',
         headers: this._headers 
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Редактировать профиль
@@ -39,8 +37,7 @@ export class Api {
           name,
           about
         })
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Добавить карточку.
@@ -54,8 +51,7 @@ export class Api {
           name,
           link
         })
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Удалить карточку
@@ -65,8 +61,7 @@ export class Api {
       { 
         method: 'DELETE',
         headers: this._headers
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Поставить лайк
@@ -76,8 +71,7 @@ export class Api {
       { 
         method: 'PUT',
         headers: this._headers
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Удалить лайк
@@ -87,8 +81,7 @@ export class Api {
       { 
         method: 'DELETE',
         headers: this._headers
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
 //Изменить аватар
@@ -101,13 +94,12 @@ export class Api {
         body: JSON.stringify({
           avatar 
         })
-      }).then(this._errorHandler)
-      .catch(console.log)
+      }).then(this._checkRespose)
     }
 
-//Ошибки
+//Проверка ответа
 
-    _errorHandler(res) {
+    _checkRespose(res) {
         if (res.ok) {
           return res.json()
         }

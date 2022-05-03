@@ -39,6 +39,7 @@ api.getCards()
     section.addItems(item)
   })
 })
+.catch((err)=> console.log(err))
 
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
@@ -67,11 +68,13 @@ function createCard(item) {
       .then(res => {
       card.setLikes(res.likes)
     })
+    .catch((err)=> console.log(err))
     } else {
       api.addLike(id)
       .then(res => {
       card.setLikes(res.likes)
     })
+    .catch((err)=> console.log(err))
     }
     
 
@@ -109,6 +112,7 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
       });
       section.addItems(item);
     })
+    .catch((err)=> console.log(err))
     .finally( () => popupWithFormAdd.loading(false))
 
     
@@ -126,6 +130,7 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
     .then(() => {
     userInfo.setUserInfo(name, description);
   })
+  .catch((err)=> console.log(err))
   .finally( () => popupWithFormEdit.loading(false))
   }
 });
@@ -138,6 +143,7 @@ const popupWithFormDelete = new PopupWithForm(deletePopup, {
     .then(res => {
       console.log('res', res)
     })
+    .catch((err)=> console.log(err))
     .finally( () => popupWithFormDelete.loading(false))
   }
 });
@@ -153,6 +159,7 @@ const popupWithFormEditAvatar = new PopupWithForm(editAvatar, {
     .then((res) => {
       userInfo.setUserInfo(res.name, res.about, res.avatar)
     })
+    .catch((err)=> console.log(err))
     .finally( () => popupWithFormEditAvatar.loading(false))
 }
 })
