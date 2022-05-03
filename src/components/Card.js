@@ -10,14 +10,13 @@ export class Card {
     this._handleDeleteCard = handleDeleteCard;
     this._handleLikeCard = handleLikeCard;
     this._template = document.querySelector(cardSelector).content.querySelector('.grid-cards__item');
-    // this.isLiked = this.isLiked.bind(this)
-    //this._handleDelete = this._handleDelete.bind(this)
+   
   };
 
   isLiked() {
-    const userHasLikedCard = this._likes.find(user => user._id === this._userId);
+    this._userHasLikedCard = this._likes.find(user => user._id === this._userId);
     
-    return userHasLikedCard
+    return this._userHasLikedCard
   }
 
   //Метод удаления.
@@ -37,8 +36,7 @@ export class Card {
 
   setLikes(newLikes) {
     this._likes = newLikes;
-    const likeCountElement = this._itemCard.querySelector('.card__like_score')
-    likeCountElement.textContent = this._likes.length;
+    this._likeCountElement.textContent = this._likes.length;
 
     if(this.isLiked()) {
       this._putLike()
@@ -63,6 +61,7 @@ export class Card {
     this._imageCard = this._itemCard.querySelector(".card__image");
     this._deleteButton = this._itemCard.querySelector(".card__button-delete");
     this._likeButton = this._itemCard.querySelector(".card__like");
+    this._likeCountElement = this._itemCard.querySelector('.card__like_score')
 
     //Заполнили
     this._itemCard.querySelector(".card__name").textContent = this._name;

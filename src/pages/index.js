@@ -18,16 +18,12 @@ const api = new Api({
 //Получаем данные профиля.
 
 let userId;
-api.getProfile()
-.then(res => {
-  userInfo.setUserInfo(res.name, res.about, res.avatar)
-  userId = res._id
-});
-
-//Получаем карточки.
-api.getCards()
-.then(cardList => {
-  cardList.forEach(data =>{
+Promise.all([api.getProfile(), api.getCards()])
+.then(([userData, cards]) => {
+  userInfo.setUserInfo(userData.name, userData.about, userData.avatar)
+  userId = userData._id
+  cards.reverse()
+  cards.forEach(data =>{
     const item = createCard({
       name: data.name,
       link: data.link,
@@ -38,8 +34,13 @@ api.getCards()
     });
     section.addItems(item)
   })
+
 })
 .catch((err)=> console.log(err))
+
+
+//Получаем карточки.
+
 
 //Класс открытия карточки на весь экран
 const popupWithImage = new PopupWithImage(popupFullScreen);
@@ -58,6 +59,7 @@ function createCard(item) {
       api.deleteCard(id)
       .then(() => {
         card.deleteCard()
+        popupWithFormDelete.close();
       })
     })
     popupWithFormDelete.open();
@@ -108,9 +110,9 @@ const popupWithFormAdd = new PopupWithForm(popupElementAdd, {
         id: res._id,
         userId: userId,
         ownerId: res.owner._id
-        
       });
       section.addItems(item);
+      popupWithFormAdd.close();
     })
     .catch((err)=> console.log(err))
     .finally( () => popupWithFormAdd.loading(false))
@@ -127,8 +129,9 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
     popupWithFormEdit.loading(true)
     const {name, description} = data;
     api.editProfile(name, description)
-    .then(() => {
-    userInfo.setUserInfo(name, description);
+    .then((res) => {
+    userInfo.setUserInfo(res.name, res.about, res.avatar);
+    popupWithFormEdit.close();
   })
   .catch((err)=> console.log(err))
   .finally( () => popupWithFormEdit.loading(false))
@@ -137,15 +140,7 @@ const popupWithFormEdit = new PopupWithForm(profilePopup, {
 
 //Попап удаления карточки.
 const popupWithFormDelete = new PopupWithForm(deletePopup, {
-  handlerFormSubmit: () => {
-    popupWithFormDelete.loading(true)
-    api.deleteCard(id)
-    .then(res => {
-      console.log('res', res)
-    })
-    .catch((err)=> console.log(err))
-    .finally( () => popupWithFormDelete.loading(false))
-  }
+  handlerFormSubmit: () => {}
 });
 popupWithFormDelete.setEventListeners()
 
@@ -157,7 +152,8 @@ const popupWithFormEditAvatar = new PopupWithForm(editAvatar, {
     const {link} = data; 
     api.updateAvatar(link)
     .then((res) => {
-      userInfo.setUserInfo(res.name, res.about, res.avatar)
+      userInfo.setUserInfo(res.name, res.about, res.avatar);
+      popupWithFormEditAvatar.close();
     })
     .catch((err)=> console.log(err))
     .finally( () => popupWithFormEditAvatar.loading(false))
@@ -171,7 +167,8 @@ popupEditButton.addEventListener("click", () => {
   nameInput.value = name;
   jobInput.value = description;
   popupWithFormEdit.open();
-  editProfileValidator.disabledSubmitButton()
+  editProfileValidator.resetValidation();
+  editProfileValidator.disabledSubmitButton();
 });
 popupWithFormEdit.setEventListeners();
 
@@ -180,7 +177,6 @@ popupAddButton.addEventListener("click", () =>{
   popupWithFormAdd.open();
   addForm.reset();
   addCardValidator.resetValidation()
-  addCardValidator.disabledSubmitButton()
 });
 
 //Кнопка редактировать аватар.
@@ -188,8 +184,6 @@ editAvatarButton.addEventListener("click", () =>{
   popupWithFormEditAvatar.open()
   avatarForm.reset();
   avatarValidator.resetValidation();
-  avatarValidator.disabledSubmitButton();
-
 })
 
 
