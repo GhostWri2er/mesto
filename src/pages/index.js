@@ -15,9 +15,9 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 }); 
+//Получаем данные профиля.
 
 let userId;
-//Получаем данные профиля.
 api.getProfile()
 .then(res => {
   userInfo.setUserInfo(res.name, res.about, res.avatar)

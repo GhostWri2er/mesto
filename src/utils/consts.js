@@ -41,8 +41,8 @@ export const popupImage = document.querySelector(".popup__img-FullScreen");
 export const popupImageName = document.querySelector(".popup__name-FullScreen");
 export const popupFullScreen = document.querySelector(".popup-FullScreen");
 
-export const deletePopup = document.querySelector('.popup_type_delete_cards');
+export const deletePopup = document.querySelector('.popup__type-delete-cards');
 export const editAvatar = document.querySelector('.popup_edit_avatar');
-export const editAvatarButton = document.querySelector('.profile__edit_button_avatar');
+export const editAvatarButton = document.querySelector('.profile__edit-button-avatar');
 export const avatarForm = document.querySelector('.popup__form-edit-avatar');
 export const profileAvatar = document.querySelector('.profile__avatar')
