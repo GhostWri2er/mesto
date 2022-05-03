@@ -23,18 +23,7 @@ Promise.all([api.getProfile(), api.getCards()])
   userInfo.setUserInfo(userData.name, userData.about, userData.avatar)
   userId = userData._id
   cards.reverse()
-  cards.forEach(data =>{
-    const item = createCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      id: data._id,
-      userId: userId,
-      ownerId: data.owner._id
-    });
-    section.addItems(item)
-  })
-
+  section.renderItems(cards)
 })
 .catch((err)=> console.log(err))
 
@@ -61,6 +50,7 @@ function createCard(item) {
         card.deleteCard()
         popupWithFormDelete.close();
       })
+      .catch((err)=> console.log(err))
     })
     popupWithFormDelete.open();
   },
@@ -88,9 +78,15 @@ function createCard(item) {
 const section = new Section(
   {
     items: [],
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      section.addItems(cardElement);
+    renderer: (data) => {
+      section.addItems(createCard({
+        name: data.name,
+        link: data.link,
+        likes: data.likes,
+        id: data._id,
+        userId: userId,
+        ownerId: data.owner._id
+      }));
     },
   } , '.grid-cards');
   
@@ -175,18 +171,14 @@ popupWithFormEdit.setEventListeners();
 //Кнопка добавить.
 popupAddButton.addEventListener("click", () =>{
   popupWithFormAdd.open();
-  addForm.reset();
   addCardValidator.resetValidation()
 });
 
 //Кнопка редактировать аватар.
 editAvatarButton.addEventListener("click", () =>{
   popupWithFormEditAvatar.open()
-  avatarForm.reset();
   avatarValidator.resetValidation();
 })
-
-
 
 // Класс UserInfo
 const userInfo = new UserInfo ({ userName: ".profile__name",  aboutUser: ".profile__description", userAvatar: '.profile__avatar' })
